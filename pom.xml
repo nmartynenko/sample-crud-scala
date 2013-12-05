@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.aimprosoft</groupId>
+    <artifactId>sample-crud-scala</artifactId>
+    <version>0.0.1</version>
+
+    <name>Sample CRUD Scala</name>
+    <description>Sample CRUD Scala</description>
+
+    <packaging>war</packaging>
+
+    <properties>
+        <jdk.target>1.6</jdk.target>
+        <jdk.source>1.6</jdk.source>
+        <show.deprecations>false</show.deprecations>
+
+        <junit.version>4.11</junit.version>
+        <jsonpath.version>0.9.1</jsonpath.version>
+
+        <scala.version>2.10.2</scala.version>
+
+        <commons.beanutils.version>1.8.3</commons.beanutils.version>
+        <commons.collections.version>3.2.1</commons.collections.version>
+        <commons.fileupload.version>1.3</commons.fileupload.version>
+        <commons.io.version>2.4</commons.io.version>
+        <commons.lang.version>2.6</commons.lang.version>
+
+        <jstl.version>1.2</jstl.version>
+        <servlet-api.version>2.5</servlet-api.version>
+        <jsp-api.version>2.1</jsp-api.version>
+
+        <hibernate.version>4.2.8.Final</hibernate.version>
+        <hibernate.annotations.version>4.0.4.Final</hibernate.annotations.version>
+        <hsqldb.version>2.3.1</hsqldb.version>
+        <ehcache.version>2.7.4</ehcache.version>
+        <c3p0.version>0.9.2.1</c3p0.version>
+
+        <slf4j.version>1.7.5</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+
+        <spring.framework.version>3.2.5.RELEASE</spring.framework.version>
+        <spring.security.version>3.1.4.RELEASE</spring.security.version>
+        <spring.data.core.version>1.6.2.RELEASE</spring.data.core.version>
+        <spring.data.jpa.version>1.4.2.RELEASE</spring.data.jpa.version>
+        <spring-scala_2.10.version>1.0.0.RC1</spring-scala_2.10.version>
+
+        <oval.version>1.84</oval.version>
+        <jackson.version>2.3.0</jackson.version>
+
+        <!--Container-->
+        <jetty.version>9.1.0.v20131115</jetty.version>
+
+        <maven.test.skip>false</maven.test.skip>
+
+        <war.name>sample-app</war.name>
+        <guava.version>15.0</guava.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>JBOSS</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>ibiblio.mirrors</id>
+            <name>ibiblio.mirrors</name>
+            <url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
+        </repository>
+        <repository>
+            <id>sonatype mirror</id>
+            <url>http://search.maven.org/remotecontent?filepath=</url>
+        </repository>
+        <repository>
+            <id>milestone.repo.springsource.org</id>
+            <name>repo.springsource.org-milestone</name>
+            <url>https://repo.springsource.org/libs-milestone</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!--Test dependencies-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${jsonpath.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path-assert</artifactId>
+            <version>${jsonpath.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--Scala dependencies-->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-reflect</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+
+        <!-- Logging dependencies -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!--Servlet and container dependencies-->
+        <!--
+                <dependency>
+                    <groupId>javax.servlet.jsp</groupId>
+                    <artifactId>jsp-api</artifactId>
+                    <version>${jsp-api.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                    <version>${servlet-api.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>jstl</artifactId>
+                    <version>${jstl.version}</version>
+                </dependency>
+        -->
+
+        <!-- Spring dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.framework.version}</version>
+            <exclusions>
+                <!-- Exclude Commons Logging in favor of SLF4j -->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <version>${spring.data.core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring.data.jpa.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.framework.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.scala</groupId>
+            <artifactId>spring-scala_2.10</artifactId>
+            <version>${spring-scala_2.10.version}</version>
+        </dependency>
+
+        <!-- Hibernate dependencies -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.common</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>${hibernate.annotations.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>${hibernate.version}</version>
+            <exclusions>
+                <!--We have newer version of c3p0-->
+                <exclusion>
+                    <groupId>c3p0</groupId>
+                    <artifactId>c3p0</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${hsqldb.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>${c3p0.version}</version>
+        </dependency>
+
+        <!--Other dependencies-->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${ehcache.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.oval</groupId>
+            <artifactId>oval</artifactId>
+            <version>${oval.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-scala_2.10</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!--Jetty-->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-deploy</artifactId>
+            <version>${jetty.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-jsp</artifactId>
+            <version>${jetty.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <testSourceDirectory>src/test/scala</testSourceDirectory>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <version>2.15.2</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <phase>test-compile</phase>
+                    </execution>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.scala-lang</groupId>
+                        <artifactId>scala-compiler</artifactId>
+                        <version>${scala.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <inherited>true</inherited>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <inherited>true</inherited>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${jdk.source}</source>
+                    <target>${jdk.target}</target>
+                    <optimize>true</optimize>
+                    <showDeprecation>${show.deprecations}</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>start-jetty</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+
+                        <configuration>
+                            <mainClass>com.aimprosoft.scala.JettyMain</mainClass>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

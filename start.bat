@@ -1,0 +1,1 @@
+cmd clean /c mvn compile -P start-jetty
