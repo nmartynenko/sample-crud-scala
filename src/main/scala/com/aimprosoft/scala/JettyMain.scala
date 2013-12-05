@@ -1,7 +1,6 @@
 package com.aimprosoft.scala
 
-import org.eclipse.jetty.server.Server
-import org.eclipse.jetty.server.ServerConnector
+import org.eclipse.jetty.server.{Server, ServerConnector}
 import org.eclipse.jetty.webapp.WebAppContext
 
 object JettyMain extends App {

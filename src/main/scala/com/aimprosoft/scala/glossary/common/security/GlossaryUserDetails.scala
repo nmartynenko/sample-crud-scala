@@ -1,15 +1,13 @@
 package com.aimprosoft.scala.glossary.common.security
 
-import org.springframework.security.core.GrantedAuthority
-import java.util.Collection
 import com.aimprosoft.scala.glossary.common.model.impl.User
+import java.util
+import org.springframework.security.core.GrantedAuthority
 import scala.beans.BeanProperty
 
 case class GlossaryUserDetails(var username: String,
                                var password: String,
-                               authorities: Collection[GrantedAuthority]
-
-                                )
+                               authorities: util.Collection[GrantedAuthority])
   extends org.springframework.security.core.userdetails.User(username, password, authorities) {
 
   @BeanProperty

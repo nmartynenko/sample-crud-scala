@@ -1,21 +1,19 @@
 package com.aimprosoft.scala.glossary.common.security
 
-import org.springframework.beans.factory.annotation.Autowired
-import com.aimprosoft.scala.glossary.common.service.UserService
-import org.springframework.security.core.userdetails.{UsernameNotFoundException, UserDetails, UserDetailsService}
-import scala.beans.BeanProperty
-import org.springframework.security.core.GrantedAuthority
 import com.aimprosoft.scala.glossary.common.model.UserRole
-import java.util
 import com.aimprosoft.scala.glossary.common.model.impl.User
+import com.aimprosoft.scala.glossary.common.service.UserService
+import java.util
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.{UsernameNotFoundException, UserDetails, UserDetailsService}
 import scala._
 
 class GlossaryUserDetailsService extends UserDetailsService {
 
-  @BeanProperty
   @Autowired
-  var userService: UserService = null
+  private val userService: UserService = null
 
   @throws[UsernameNotFoundException]
   def loadUserByUsername(username: String): UserDetails = {

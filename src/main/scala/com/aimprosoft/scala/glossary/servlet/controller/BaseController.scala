@@ -1,21 +1,19 @@
 package com.aimprosoft.scala.glossary.servlet.controller
 
+import java.util.Locale
+import javax.servlet.http.HttpServletRequest
 import org.slf4j.{Logger, LoggerFactory}
 import org.springframework.beans.factory.annotation.Autowired
-import javax.servlet.http.HttpServletRequest
-import org.springframework.web.context.request.{ServletRequestAttributes, RequestContextHolder}
-import java.util.Locale
-import org.springframework.context.i18n.LocaleContextHolder
-import scala.beans.BeanProperty
 import org.springframework.context.MessageSource
+import org.springframework.context.i18n.LocaleContextHolder
+import org.springframework.web.context.request.{ServletRequestAttributes, RequestContextHolder}
 
 trait BaseController {
 
   protected val _logger: Logger = LoggerFactory.getLogger(getClass)
 
-  @BeanProperty
   @Autowired
-  protected var messageSource: MessageSource = null
+  protected val messageSource: MessageSource = null
 
   protected def getRequest: HttpServletRequest = {
     RequestContextHolder.getRequestAttributes match {

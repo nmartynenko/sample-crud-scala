@@ -12,13 +12,13 @@ class ApplicationProps {
 
   @BeanProperty
   @Value("${paginator.default.pageSize}")
-  var defaulPaginatorPageSize: Int = 0
+  val defaulPaginatorPageSize: Int = 0
 
   @BeanProperty
   @Value("${paginator.default.maxPage}")
-  var defaulPaginatorMaxPage: Int = 0
+  val defaulPaginatorMaxPage: Int = 0
 
   @BeanProperty
   @Value("${paginator.default.fastStep}")
-  var defaulPaginatorFastStep: Int = 0
+  val defaulPaginatorFastStep: Int = 0
 }

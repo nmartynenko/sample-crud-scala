@@ -1,10 +1,8 @@
 package com.aimprosoft.scala.glossary.servlet.model
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonRootName
-import com.fasterxml.jackson.annotation.JsonUnwrapped
-import org.springframework.data.domain.Page
 import com.aimprosoft.scala.glossary.common.model.impl.Glossary
+import com.fasterxml.jackson.annotation.{JsonIgnoreProperties, JsonRootName, JsonUnwrapped}
+import org.springframework.data.domain.Page
 import scala.beans.BeanProperty
 ;
 

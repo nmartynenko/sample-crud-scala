@@ -1,13 +1,12 @@
 package com.aimprosoft.scala.glossary.common.sample
 
-import org.springframework.beans.factory.InitializingBean
-import org.springframework.stereotype.Service
-import org.slf4j.LoggerFactory
-import scala.beans.BeanProperty
-import org.springframework.beans.factory.annotation.Autowired
-import scala.util.Random
 import com.aimprosoft.scala.glossary.common.model.impl.Glossary
 import com.aimprosoft.scala.glossary.common.persistence.GlossaryPersistence
+import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.InitializingBean
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+import scala.util.Random
 
 @Service
 class CreateGlossaryDataListener extends InitializingBean {
@@ -30,9 +29,8 @@ class CreateGlossaryDataListener extends InitializingBean {
 
   private val _logger = LoggerFactory.getLogger(getClass)
 
-  @BeanProperty
   @Autowired
-  var glossaryPersistence: GlossaryPersistence = null
+  private val glossaryPersistence: GlossaryPersistence = null
 
   @throws[Exception]
   def afterPropertiesSet() {

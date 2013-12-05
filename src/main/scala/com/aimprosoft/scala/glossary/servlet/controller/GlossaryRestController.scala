@@ -1,17 +1,15 @@
 package com.aimprosoft.scala.glossary.servlet.controller
 
-import com.aimprosoft.scala.glossary.common.service.GlossaryService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Controller
-import scala.beans.BeanProperty
-import org.springframework.web.bind.annotation._
-import com.aimprosoft.scala.glossary.common.persistence.UserPersistence
-import org.springframework.http.MediaType
 import com.aimprosoft.scala.glossary.common.exception.GlossaryException
-import com.aimprosoft.scala.glossary.servlet.model.GlossaryList
-import scala.throws
-import org.springframework.validation.annotation.Validated
 import com.aimprosoft.scala.glossary.common.model.impl.Glossary
+import com.aimprosoft.scala.glossary.common.service.GlossaryService
+import com.aimprosoft.scala.glossary.servlet.model.GlossaryList
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.MediaType
+import org.springframework.stereotype.Controller
+import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation._
+import scala.throws
 
 /**
  * Glossaries REST-controller. It produces and consumes JSON. For "USER" role all actions are read-only.
@@ -21,13 +19,8 @@ import com.aimprosoft.scala.glossary.common.model.impl.Glossary
 @Controller
 class GlossaryRestController extends BaseController {
 
-  @BeanProperty
   @Autowired
-  var glossaryService: GlossaryService = null
-
-  @BeanProperty
-  @Autowired
-  var userPersistence: UserPersistence = null
+  private val glossaryService: GlossaryService = null
 
   @RequestMapping(value = Array("/glossaries"),
     method = Array(RequestMethod.GET),

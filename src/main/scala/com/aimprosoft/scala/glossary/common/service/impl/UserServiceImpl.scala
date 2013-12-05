@@ -1,23 +1,21 @@
 package com.aimprosoft.scala.glossary.common.service.impl
 
-import org.springframework.stereotype.Service
+import com.aimprosoft.scala.glossary.common.model.impl.User
+import com.aimprosoft.scala.glossary.common.persistence.UserPersistence
 import com.aimprosoft.scala.glossary.common.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
-import scala.beans.BeanProperty
-import com.aimprosoft.scala.glossary.common.persistence.UserPersistence
-import org.springframework.security.crypto.password.PasswordEncoder
-import com.aimprosoft.scala.glossary.common.model.impl.User
+import org.springframework.security.crypto.password.{NoOpPasswordEncoder, PasswordEncoder}
+import org.springframework.stereotype.Service
+
 
 @Service
 class UserServiceImpl extends UserService {
 
-  @BeanProperty
   @Autowired
-  var userPersistence: UserPersistence = null
+  private val userPersistence: UserPersistence = null
 
-  @BeanProperty
-  @Autowired
-  var passwordEncoder: PasswordEncoder = null
+  @Autowired(required = false)
+  private val passwordEncoder: PasswordEncoder = NoOpPasswordEncoder.getInstance
 
   def addUser(user: User): Unit = {
     user.setPassword(passwordEncoder.encode(user.getPassword))

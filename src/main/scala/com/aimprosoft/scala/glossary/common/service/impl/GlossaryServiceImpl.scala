@@ -1,25 +1,21 @@
 package com.aimprosoft.scala.glossary.common.service.impl
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.dao.EmptyResultDataAccessException
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
-import org.springframework.stereotype.Service
-import com.aimprosoft.scala.glossary.common.service.GlossaryService
-import com.aimprosoft.scala.glossary.common.persistence.GlossaryPersistence
-import scala.beans.BeanProperty
-import java.lang.Long
 import com.aimprosoft.scala.glossary.common.exception.{NoGlossaryFoundException, GlossaryException}
 import com.aimprosoft.scala.glossary.common.model.impl.Glossary
+import com.aimprosoft.scala.glossary.common.persistence.GlossaryPersistence
+import com.aimprosoft.scala.glossary.common.service.GlossaryService
+import java.lang.Long
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.data.domain.{Page, PageRequest,Pageable}
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.stereotype.Service
 
 @Service
 class GlossaryServiceImpl extends GlossaryService {
 
-  @BeanProperty
   @Autowired
-  var glossaryPersistence: GlossaryPersistence = null
+  private val glossaryPersistence: GlossaryPersistence = null
 
   @throws[GlossaryException]
   def getCurrentPage(startRow: Int, pageSize: Int): Page[Glossary] = {

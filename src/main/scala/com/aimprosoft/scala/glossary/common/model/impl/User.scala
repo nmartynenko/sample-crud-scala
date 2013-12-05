@@ -1,10 +1,10 @@
 package com.aimprosoft.scala.glossary.common.model.impl
 
-import net.sf.oval.constraint.{Email, NotEmpty, NotNull}
-
-import javax.persistence._
 import com.aimprosoft.scala.glossary.common.model.BusinessModel
+import javax.persistence._
+import net.sf.oval.constraint.{Email, NotEmpty, NotNull}
 import scala.beans.BeanProperty
+
 
 @Entity
 @Table(name = "glossary_user")

@@ -1,13 +1,12 @@
 package com.aimprosoft.scala.glossary.common.sample
 
+import com.aimprosoft.scala.glossary.common.model.UserRole
+import com.aimprosoft.scala.glossary.common.model.impl.User
+import com.aimprosoft.scala.glossary.common.service.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import com.aimprosoft.scala.glossary.common.service.UserService
-import scala.beans.BeanProperty
-import com.aimprosoft.scala.glossary.common.model.impl.User
-import com.aimprosoft.scala.glossary.common.model.UserRole
 ;
 
 @Service
@@ -15,9 +14,8 @@ class CreateAdminListener extends InitializingBean {
 
   private val _logger = LoggerFactory.getLogger(getClass)
 
-  @BeanProperty
   @Autowired
-  var userService: UserService = null
+  private val userService: UserService = null
 
   @throws[Exception]
   def afterPropertiesSet() {

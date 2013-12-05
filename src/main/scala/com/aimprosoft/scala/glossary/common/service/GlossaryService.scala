@@ -1,11 +1,11 @@
 package com.aimprosoft.scala.glossary.common.service
 
-import org.springframework.data.domain.Page
-import com.aimprosoft.scala.glossary.common.model.impl.Glossary
 import com.aimprosoft.scala.glossary.common.exception.GlossaryException
+import com.aimprosoft.scala.glossary.common.model.impl.Glossary
+import java.lang.Long
+import org.springframework.data.domain.Page
 import org.springframework.security.access.prepost.PreAuthorize
 import scala.throws
-import java.lang.Long
 
 trait GlossaryService {
 

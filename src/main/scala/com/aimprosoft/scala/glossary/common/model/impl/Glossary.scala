@@ -1,7 +1,7 @@
 package com.aimprosoft.scala.glossary.common.model.impl
 
-import javax.persistence._
 import com.aimprosoft.scala.glossary.common.model.BusinessModel
+import javax.persistence._
 import net.sf.oval.constraint.{NotEmpty, NotNull}
 import scala.beans.BeanProperty
 

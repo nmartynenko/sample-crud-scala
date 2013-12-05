@@ -1,12 +1,12 @@
 package com.aimprosoft.scala.glossary.servlet.controller
 
-import org.springframework.web.bind.annotation.{ResponseStatus, ExceptionHandler, ResponseBody, ControllerAdvice}
 import com.aimprosoft.scala.glossary.common.exception.{GlossaryException, NoGlossaryFoundException}
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.AuthenticationException
 import org.springframework.validation.{FieldError, Errors}
 import org.springframework.web.bind.MethodArgumentNotValidException
+import org.springframework.web.bind.annotation.{ResponseStatus, ExceptionHandler, ResponseBody, ControllerAdvice}
 
 //Java2Scala conversions
 import scala.collection.JavaConversions._
