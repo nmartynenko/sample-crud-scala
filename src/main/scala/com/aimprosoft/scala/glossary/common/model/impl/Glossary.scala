@@ -15,7 +15,7 @@ class Glossary extends BusinessModel {
   @NotEmpty(message = "sample.error.not.empty")
   //hibernate
   @Column(name = "name", nullable = false, unique = true)
-  var name: String = null
+  var name: String = _
 
   @BeanProperty
   //validation
@@ -24,6 +24,6 @@ class Glossary extends BusinessModel {
   //hibernate
   @Lob
   @Column(name = "description", nullable = true, length = 4096)
-  var description: String = null
+  var description: String = _
 
 }

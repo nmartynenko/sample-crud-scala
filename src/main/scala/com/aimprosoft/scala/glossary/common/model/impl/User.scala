@@ -17,7 +17,7 @@ class User extends BusinessModel {
   @Email(message = "sample.error.wrong.email")
   //hibernate
   @Column(name = "email", nullable = false, unique = true)
-  var email: String = null
+  var email: String = _
 
   @BeanProperty
   //validation
@@ -25,7 +25,7 @@ class User extends BusinessModel {
   @NotEmpty
   //hibernate
   @Column(name = "password", nullable = false, unique = true)
-  var password: String = null
+  var password: String = _
 
   @BeanProperty
   //validation
@@ -34,7 +34,7 @@ class User extends BusinessModel {
   //hibernate
   @Column(name = "name", nullable = false)
   @BeanProperty
-  var name: String = null
+  var name: String = _
 
 
   @BeanProperty
@@ -42,6 +42,6 @@ class User extends BusinessModel {
   @NotNull(message = "sample.error.not.null")
   @Column(name = "user_role", nullable = false)
   //todo what about enum?
-  var role: String = null
+  var role: String = _
 
 }

@@ -23,8 +23,8 @@ class GlossaryUserDetailsService extends UserDetailsService {
     user match {
       case null => null
       case _ =>
-        val userDetails = new GlossaryUserDetails(
-          username, user.getPassword, getGrantedAuthorities(user)
+        val userDetails = GlossaryUserDetails(
+          username, user.password, getGrantedAuthorities(user)
         )
 
         //set actual DB user for possible further purposes
@@ -38,7 +38,7 @@ class GlossaryUserDetailsService extends UserDetailsService {
   def getGrantedAuthorities(user: User): util.Collection[GrantedAuthority] = {
     var userRoles = List(UserRole.USER)
 
-    if (user.getRole equals UserRole.ADMIN.toString){
+    if (user.role equals UserRole.ADMIN.toString){
       userRoles = UserRole.ADMIN :: userRoles
     }
 

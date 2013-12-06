@@ -11,6 +11,6 @@ abstract class BusinessModel extends HibernateModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false)
     @BeanProperty
-    var id: Long = null
+    var id: Long = _
 
 }

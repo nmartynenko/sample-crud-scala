@@ -13,7 +13,7 @@ trait BaseController {
   protected val _logger: Logger = LoggerFactory.getLogger(getClass)
 
   @Autowired
-  protected val messageSource: MessageSource = null
+  protected var messageSource: MessageSource = _
 
   protected def getRequest: HttpServletRequest = {
     RequestContextHolder.getRequestAttributes match {
@@ -29,7 +29,7 @@ trait BaseController {
   }
 
   //logs exception and returns it's message
-  protected def simpleExceptionHandler(th: Throwable): String = {
+  protected def simpleExceptionHandler(th: Throwable) = {
     _logger.error(th.getMessage, th)
 
     th.getMessage

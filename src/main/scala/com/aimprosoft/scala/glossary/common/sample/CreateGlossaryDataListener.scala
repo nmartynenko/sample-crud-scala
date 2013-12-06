@@ -2,14 +2,14 @@ package com.aimprosoft.scala.glossary.common.sample
 
 import com.aimprosoft.scala.glossary.common.model.impl.Glossary
 import com.aimprosoft.scala.glossary.common.persistence.GlossaryPersistence
+import javax.annotation.PostConstruct
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import scala.util.Random
 
 @Service
-class CreateGlossaryDataListener extends InitializingBean {
+class CreateGlossaryDataListener {
 
   private val TITLES = ("Lorem ipsum dolor sit amet, consectetur adipisicing elit," +
     "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.").split(",")
@@ -32,8 +32,11 @@ class CreateGlossaryDataListener extends InitializingBean {
   @Autowired
   private val glossaryPersistence: GlossaryPersistence = null
 
+  @PostConstruct
   @throws[Exception]
-  def afterPropertiesSet() {
+  def init() {
+    _logger.info("Start adding sample glossaries")
+
     val random = new Random()
 
     var i = TITLES.length
@@ -43,10 +46,12 @@ class CreateGlossaryDataListener extends InitializingBean {
       val descIndex = random.nextInt(DESCRIPTIONS.length)
 
       val glossary = new Glossary()
-      glossary.setName(TITLES(i))
-      glossary.setDescription(DESCRIPTIONS(descIndex))
+      glossary.name = TITLES(i)
+      glossary.description = DESCRIPTIONS(descIndex)
 
       glossaryPersistence.save(glossary)
     }
+
+    _logger.info("End adding sample glossaries")
   }
 }

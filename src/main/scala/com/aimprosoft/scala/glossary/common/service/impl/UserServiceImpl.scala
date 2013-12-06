@@ -18,7 +18,7 @@ class UserServiceImpl extends UserService {
   private val passwordEncoder: PasswordEncoder = NoOpPasswordEncoder.getInstance
 
   def addUser(user: User): Unit = {
-    user.setPassword(passwordEncoder.encode(user.getPassword))
+    user.password = passwordEncoder.encode(user.password)
 
     userPersistence.save(user)
   }

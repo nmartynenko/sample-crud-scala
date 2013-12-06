@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping
 class HtmlController extends BaseController {
 
   @RequestMapping(value = Array("/", "index.html"))
-  def index: String = {
+  def index = {
     "/index"
   }
 
   @RequestMapping(value = Array("login.html"))
-  def login: String = {
+  def login = {
     "/login"
   }
 
