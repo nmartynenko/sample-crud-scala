@@ -18,7 +18,8 @@
     <beans:bean name="glossaryUserDetailsService"
                 class="com.aimprosoft.scala.glossary.common.security.GlossaryUserDetailsService"/>
 
-    <global-method-security secured-annotations="enabled" pre-post-annotations="enabled">
+    <global-method-security secured-annotations="disabled" pre-post-annotations="disabled">
+    <!--<global-method-security secured-annotations="enabled" pre-post-annotations="enabled">-->
         <expression-handler ref="securityExpressionHandler"/>
     </global-method-security>
 
@@ -33,9 +34,9 @@
 
         <intercept-url pattern="/index.html" access="hasAnyRole('USER,ADMIN')"/>
 
-        <intercept-url pattern="/glossaries" access="hasAnyRole('USER,ADMIN')"/>
+        <!--<intercept-url pattern="/glossaries" access="hasAnyRole('USER,ADMIN')"/>-->
 
-        <intercept-url pattern="/glossaries/*" access="hasAnyRole('USER,ADMIN')"/>
+        <!--<intercept-url pattern="/glossaries/*" access="hasAnyRole('USER,ADMIN')"/>-->
 
         <!--Override default login and logout pages -->
         <form-login login-processing-url="/login" login-page="/login.html"

@@ -21,7 +21,8 @@ class GlossaryUserDetailsService extends UserDetailsService {
     val user = userService.getUserByEmail(username)
 
     user match {
-      case null => null
+      case null =>
+        null
       case _ =>
         val userDetails = GlossaryUserDetails(
           username, user.password, getGrantedAuthorities(user)

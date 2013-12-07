@@ -59,6 +59,7 @@
 
         <war.name>sample-app</war.name>
         <guava.version>15.0</guava.version>
+        <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
     </properties>
 
     <repositories>
@@ -292,6 +293,14 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
+        </dependency>
+
+        <!--This is mandatory for handling
+            @Valid and @Validated annotations in Spring controllers-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
         </dependency>
 
         <dependency>

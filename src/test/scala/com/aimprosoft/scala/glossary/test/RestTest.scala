@@ -164,7 +164,7 @@ class RestTest extends JUnitSuite {
       .andExpect(status().isBadRequest)
   }
 
-  @Ignore("unexpected behaviour, seems to Hibernate/HSQLDB issue")
+  @Test
   def `08 add invalid glossary`() {
     val glossary = new Glossary()
     glossary.setName(null)//incorrect value

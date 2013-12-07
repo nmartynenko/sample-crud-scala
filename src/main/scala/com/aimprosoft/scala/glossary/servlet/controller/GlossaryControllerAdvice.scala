@@ -1,15 +1,16 @@
 package com.aimprosoft.scala.glossary.servlet.controller
 
 import com.aimprosoft.scala.glossary.common.exception.{GlossaryException, NoGlossaryFoundException}
-import org.springframework.http.{MediaType, HttpHeaders, ResponseEntity, HttpStatus}
+import org.springframework.http.HttpStatus
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.AuthenticationException
 import org.springframework.validation.{FieldError, Errors}
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.{ResponseStatus, ExceptionHandler, ResponseBody, ControllerAdvice}
-import scala.collection.JavaConversions._
+import scala.collection.mutable
 
-//Java2Scala conversions
+//Java2Scala conversions and vice versa
+import scala.collection.JavaConversions._
 
 @ControllerAdvice
 class GlossaryControllerAdvice extends BaseController {
@@ -45,17 +46,15 @@ class GlossaryControllerAdvice extends BaseController {
   }
 
   //do not pass validation
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value = Array(classOf[MethodArgumentNotValidException]))
   @ResponseBody
-  def handleMethodArgumentNotValidException(e: MethodArgumentNotValidException) {
-    val headers: HttpHeaders = new HttpHeaders()
-    headers.setContentType(MediaType.APPLICATION_JSON)
-
-    new ResponseEntity(transformErrors(e.getBindingResult), headers, HttpStatus.BAD_REQUEST)
+  def handleMethodArgumentNotValidException(e: MethodArgumentNotValidException) = {
+    transformErrors(e.getBindingResult)
   }
 
   private def transformErrors(errors: Errors) = {
-    val errorsMap = Map[String, String]()
+    val errorsMap = mutable.Map[String, String]()
 
     val allErrors = errors.getAllErrors.toList
 
@@ -67,7 +66,7 @@ class GlossaryControllerAdvice extends BaseController {
           error.getObjectName
       }
 
-      errorsMap.updated(objectName,
+      errorsMap.put(objectName,
         messageSource.getMessage(error.getDefaultMessage, Array(objectName), getLocale))
     }
 

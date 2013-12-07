@@ -17,12 +17,7 @@
 
     <context:component-scan base-package="com.aimprosoft.scala.glossary.common.sample"/>
 
-<!--
-    <context:component-scan base-package="com.aimprosoft.scala.spring"/>
-
-    <bean name="validator" class="com.aimprosoft.spring.validation.oval.spring.SpringOvalValidator">
--->
-    <bean name="validator" class="net.sf.oval.integration.spring.SpringValidator">
+    <bean name="validator" class="com.aimprosoft.scala.contrib.spring.validator.SpringOvalValidator">
         <property name="validator">
             <bean class="net.sf.oval.Validator"/>
         </property>
@@ -35,6 +30,11 @@
                 <value type="com.fasterxml.jackson.databind.DeserializationFeature">FAIL_ON_UNKNOWN_PROPERTIES</value>
             </list>
         </property>
+    </bean>
+
+    <!--Initialize Scala module-->
+    <bean class="com.aimprosoft.scala.contrib.jackson.ScalaJacksonConfigurer">
+        <property name="objectMapper" ref="objectMapper"/>
     </bean>
 
 </beans>

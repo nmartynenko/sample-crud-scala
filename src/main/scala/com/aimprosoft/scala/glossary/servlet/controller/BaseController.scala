@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.web.context.request.{ServletRequestAttributes, RequestContextHolder}
+import com.fasterxml.jackson.databind.ObjectMapper
 
 trait BaseController {
 
@@ -14,6 +15,9 @@ trait BaseController {
 
   @Autowired
   protected var messageSource: MessageSource = _
+
+  @Autowired
+  protected var objecMapper: ObjectMapper = _
 
   protected def getRequest: HttpServletRequest = {
     RequestContextHolder.getRequestAttributes match {
