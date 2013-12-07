@@ -1,6 +1,9 @@
 package com.aimprosoft.scala.contrib.spring.validator
 
-import scala.annotation.StaticAnnotation
+import java.lang.annotation._
 
-@scala.annotation.meta.field
-class SpringValidateNestedProperty extends StaticAnnotation
+//it's made as Java annotation for interoperability
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(Array(ElementType.FIELD))
+abstract class SpringValidateNestedProperty extends Annotation

@@ -1,14 +1,14 @@
 package com.aimprosoft.scala.contrib.spring.validator
 
-import net.sf.oval.{ConstraintViolation, Validator}
+import java.lang.{reflect => jreflect}
+import java.util
 import net.sf.oval.context.FieldContext
 import net.sf.oval.exception.ValidationFailedException
+import net.sf.oval.{ConstraintViolation, Validator}
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.util.Assert
 import org.springframework.validation.Errors
 import scala.beans.BeanProperty
-import java.util
-import java.lang.reflect.Field
 
 //Java2Scala conversions and vice versa
 import scala.collection.JavaConversions._
@@ -39,7 +39,10 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
   private def doValidate(target: Object, errors: Errors, fieldPrefix: String) {
     try {
       //validation of current object
-//      val constraintViolations = validator.validate(target)
+
+      //val constraintViolations = validator.validate(target)
+
+      //using Java reflection because of Java&Scala interoperability issues
       val constraintViolations = classOf[Validator].getMethod("validate",
         classOf[Object]).invoke(validator, target).asInstanceOf[util.List[ConstraintViolation]]
 
@@ -58,8 +61,6 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
       }
 
       //validation of nested objects
-//      todo finish
-/*
       val fields = getFields(target)
       for (field <- fields) {
         val validate = field.getAnnotation(classOf[SpringValidateNestedProperty])
@@ -73,20 +74,42 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
           if (nestedProperty != null) {
             val name = field.getName
 
+            //NOTE: this is not well tested with Scala case classes
             nestedProperty match {
+              //valueToValidate is a collection
               case c: util.Collection[_] =>
-                ???
-              case c: util.Map[_,_] =>
-                ???
+                var index = 0
+                for (o <- c.toList) {
+                  doValidate(o.asInstanceOf[Object], errors, name + "[" + index + "].")
+                  index = index + 1
+                }
+
+              //valueToValidate is a collection
+              case m: util.Map[_, _] =>
+                for ((key, value) <- m.toMap){
+                  key match {
+                    case k: String =>
+                      doValidate(k, errors, name + "['" + k + "']")
+                    case _ =>
+                      throw new IllegalArgumentException("Map as a nested property supports only String keys for validation")
+                  }
+                }
+
+              //valueToValidate is an array
               case _ if nestedProperty.getClass.isArray =>
-                ???
+                val length = jreflect.Array.getLength(nestedProperty)
+                for (i <- 0 to length) {
+                  val o = jreflect.Array.get(nestedProperty, i)
+                  doValidate(o, errors, name + "[" + i + "].")
+                }
+
+              //valueToValidate is other object
               case _ =>
                 doValidate(nestedProperty, errors, name + ".")
             }
           }
         }
       }
-*/
 
     } catch {
       case ex: ValidationFailedException =>
@@ -100,14 +123,12 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
   }
 
   @SuppressWarnings(Array("unchecked"))
-  private def doGetFields(clazz: Class[_]): List[Field] = {
-    val fields = clazz.getDeclaredFields.toList
-
-    clazz.getSuperclass match {
+  private def doGetFields(clazz: Class[_]): List[jreflect.Field] = {
+    clazz match {
       case null =>
-        fields
-      case sc: Class[_] =>
-        fields ::: doGetFields(sc)
+        List()
+      case c: Class[_] =>
+        clazz.getDeclaredFields.toList ::: doGetFields(c.getSuperclass)
     }
   }
 
