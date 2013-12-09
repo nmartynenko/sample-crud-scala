@@ -15,6 +15,9 @@ import scala.collection.JavaConversions._
 
 class SpringOvalValidator extends org.springframework.validation.Validator with InitializingBean {
 
+  //using such type because of Java&Scala interoperability issues, e.g. ambiguity of methods execution
+  private type Validatable = {def validate(o: Object): util.List[ConstraintViolation]}
+
   @BeanProperty
   var validator: Validator = _
 
@@ -26,7 +29,6 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
     this.validator = validator
   }
 
-  @SuppressWarnings(Array("unchecked"))
   def supports(clazz: Class[_]) = {
     true
   }
@@ -39,12 +41,7 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
   private def doValidate(target: Object, errors: Errors, fieldPrefix: String) {
     try {
       //validation of current object
-
-      //val constraintViolations = validator.validate(target)
-
-      //using Java reflection because of Java&Scala interoperability issues
-      val constraintViolations = classOf[Validator].getMethod("validate",
-        classOf[Object]).invoke(validator, target).asInstanceOf[util.List[ConstraintViolation]]
+      val constraintViolations = validator.asInstanceOf[Validatable].validate(target)
 
       for (violation <- constraintViolations.toList) {
         val context = violation.getContext
@@ -73,32 +70,47 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
 
           if (nestedProperty != null) {
             val name = field.getName
+            
+            //specify method helpers
+            //for collections and arrays
+            def handleSequences(objects: Seq[_]) {
+              var index = 0
+              for (o <- objects) {
+                doValidate(o.asInstanceOf[Object], errors, name + "[" + index + "].")
+                index = index + 1
+              }
+            }
+
+            //for maps
+            def handleMap(m: Map[_, _]) {
+              for ((key, value) <- m) {
+                key match {
+                  case k: String =>
+                    doValidate(k, errors, name + "['" + k + "']")
+                  case _ =>
+                    throw new IllegalArgumentException("Map as a nested property supports only String keys for validation")
+                }
+              }
+            }
 
             //NOTE: this is not well tested with Scala case classes
             nestedProperty match {
-              //valueToValidate is a collection
+              //valueToValidate is a collection or Scala Array
               case c: util.Collection[_] =>
-                var index = 0
-                for (o <- c.toList) {
-                  doValidate(o.asInstanceOf[Object], errors, name + "[" + index + "].")
-                  index = index + 1
-                }
+                handleSequences(c.toList)
+              case c: Seq[_] =>
+                handleSequences(c)
 
               //valueToValidate is a collection
               case m: util.Map[_, _] =>
-                for ((key, value) <- m.toMap){
-                  key match {
-                    case k: String =>
-                      doValidate(k, errors, name + "['" + k + "']")
-                    case _ =>
-                      throw new IllegalArgumentException("Map as a nested property supports only String keys for validation")
-                  }
-                }
+                handleMap(m.toMap)
+              case m: Map[_, _] =>
+                handleMap(m)
 
-              //valueToValidate is an array
+              //valueToValidate is an Java array
               case _ if nestedProperty.getClass.isArray =>
                 val length = jreflect.Array.getLength(nestedProperty)
-                for (i <- 0 to length) {
+                for (i <- 0 until length) {
                   val o = jreflect.Array.get(nestedProperty, i)
                   doValidate(o, errors, name + "[" + i + "].")
                 }
@@ -117,21 +129,18 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
     }
   }
 
-  @SuppressWarnings(Array("unchecked"))
   private def getFields(target: Object) = {
+    def doGetFields(clazz: Class[_]): List[jreflect.Field] = {
+      clazz match {
+        case null =>
+          List()
+        case c: Class[_] =>
+          clazz.getDeclaredFields.toList ::: doGetFields(c.getSuperclass)
+      }
+    }
+
     doGetFields(target.getClass)
   }
-
-  @SuppressWarnings(Array("unchecked"))
-  private def doGetFields(clazz: Class[_]): List[jreflect.Field] = {
-    clazz match {
-      case null =>
-        List()
-      case c: Class[_] =>
-        clazz.getDeclaredFields.toList ::: doGetFields(c.getSuperclass)
-    }
-  }
-
 
   @throws[Exception]
   def afterPropertiesSet() {

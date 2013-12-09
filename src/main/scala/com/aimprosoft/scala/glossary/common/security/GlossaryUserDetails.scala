@@ -7,7 +7,7 @@ import scala.beans.BeanProperty
 
 case class GlossaryUserDetails(username: String,
                                password: String,
-                               authorities: util.Collection[GrantedAuthority])
+                               authorities: util.Collection[_ <: GrantedAuthority])
   extends org.springframework.security.core.userdetails.User(username, password, authorities) {
 
   @BeanProperty
