@@ -148,9 +148,28 @@ class RestTest extends JUnitSuite {
   }
 
   @Test
-  def `07 add glossary with predefined ID`() {
+  def `07 add glossary with non existing ID`() {
     val glossary = new Glossary()
     glossary.setId(100500L)
+    glossary.setName("Try to add not-existing glossary")
+    glossary.setDescription("Test glossary description")
+
+    mockMvc
+      //try to update existing glossary, which contains non-existing ID
+      .perform(put("/glossaries")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
+      )
+      //expect result is valid
+      .andExpect(status().isOk)
+      //and content is empty
+      .andExpect(content().string(""))
+  }
+
+  @Test
+  def `08 add glossary with existing name`() {
+    val glossary = new Glossary()
+    glossary.setId(12345L)
     glossary.setName("Test glossary")
     glossary.setDescription("Test glossary's description")
 
@@ -165,7 +184,7 @@ class RestTest extends JUnitSuite {
   }
 
   @Test
-  def `08 add invalid glossary`() {
+  def `09 add invalid glossary`() {
     val glossary = new Glossary()
     glossary.setName(null) //incorrect value
     glossary.setDescription("Test glossary's description")
@@ -187,7 +206,7 @@ class RestTest extends JUnitSuite {
   }
 
   @Test
-  def `09 update valid glossary`() {
+  def `10 update valid glossary`() {
     val glossary = new Glossary()
     glossary.setId(2L)
     glossary.setName("Test valid glossary")
@@ -206,7 +225,7 @@ class RestTest extends JUnitSuite {
   }
 
   @Test
-  def `10 update invalid glossary`() {
+  def `11 update invalid glossary`() {
     val glossary = new Glossary()
     glossary.setId(2L)
     glossary.setName(null)
@@ -229,7 +248,7 @@ class RestTest extends JUnitSuite {
   }
 
   @Test
-  def `11 update glossary with non existing ID`() {
+  def `12 update glossary with non existing ID`() {
     val glossary = new Glossary()
     glossary.setId(100L)
     glossary.setName("Test not-existing glossary")
@@ -248,7 +267,7 @@ class RestTest extends JUnitSuite {
   }
 
   @Test
-  def `12 update glossary with null ID`() {
+  def `13 update glossary with null ID`() {
     val glossary = new Glossary()
     glossary.setId(null)
     glossary.setName("Test null-IDs glossary")
@@ -267,7 +286,7 @@ class RestTest extends JUnitSuite {
   }
 
   @Test
-  def `13 remove existing glossary`() {
+  def `14 remove existing glossary`() {
     mockMvc
       //call glossaries with correct glossary ID
       .perform(delete("/glossaries/1")
@@ -278,7 +297,7 @@ class RestTest extends JUnitSuite {
   }
 
   @Test
-  def `14 remove non-existing glossary`() {
+  def `15 remove non-existing glossary`() {
     mockMvc
       //call glossaries with incorrect glossary ID
       .perform(delete("/glossaries/100")
