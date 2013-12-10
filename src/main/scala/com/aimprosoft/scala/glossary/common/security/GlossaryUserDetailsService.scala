@@ -39,7 +39,7 @@ class GlossaryUserDetailsService extends UserDetailsService {
   def getGrantedAuthorities(user: User): util.Collection[_ <: GrantedAuthority] = {
     var userRoles = List(UserRole.USER)
 
-    if (user.role equals UserRole.ADMIN.toString){
+    if (user.role == UserRole.ADMIN){
       userRoles = UserRole.ADMIN :: userRoles
     }
 

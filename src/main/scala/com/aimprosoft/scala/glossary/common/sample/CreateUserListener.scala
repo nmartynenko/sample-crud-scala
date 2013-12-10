@@ -25,7 +25,7 @@ class CreateUserListener {
     user.email = "user@example.com"
     user.password = "user"
     user.name = "Sample User"
-    user.role = UserRole.USER.toString
+    user.role = UserRole.USER
 
     userService.addUser(user)
 

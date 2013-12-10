@@ -26,4 +26,18 @@ class Glossary extends BusinessModel {
   @Column(name = "description", nullable = true, length = 4096)
   var description: String = _
 
+  def canEqual(other: Any): Boolean = other.isInstanceOf[Glossary]
+
+  override def equals(other: Any): Boolean = other match {
+    case that: Glossary =>
+      (that canEqual this) &&
+        name == that.name &&
+        description == that.description
+    case _ => false
+  }
+
+  override def hashCode(): Int = {
+    val state = Seq(name, description)
+    state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+  }
 }

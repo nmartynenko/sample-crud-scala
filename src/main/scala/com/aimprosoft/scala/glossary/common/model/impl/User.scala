@@ -1,6 +1,6 @@
 package com.aimprosoft.scala.glossary.common.model.impl
 
-import com.aimprosoft.scala.glossary.common.model.BusinessModel
+import com.aimprosoft.scala.glossary.common.model.{UserRole, BusinessModel}
 import javax.persistence._
 import net.sf.oval.constraint.{Email, NotEmpty, NotNull}
 import scala.beans.BeanProperty
@@ -36,12 +36,27 @@ class User extends BusinessModel {
   @BeanProperty
   var name: String = _
 
-
   @BeanProperty
   //validation
   @NotNull(message = "sample.error.not.null")
   @Column(name = "user_role", nullable = false)
-  //todo what about enum?
-  var role: String = _
+  @Enumerated(EnumType.STRING)
+  var role: UserRole = _
 
+  def canEqual(other: Any): Boolean = other.isInstanceOf[User]
+
+  override def equals(other: Any): Boolean = other match {
+    case that: User =>
+      (that canEqual this) &&
+        email == that.email &&
+        password == that.password &&
+        name == that.name &&
+        role == that.role
+    case _ => false
+  }
+
+  override def hashCode(): Int = {
+    val state = Seq(email, password, name, role)
+    state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+  }
 }

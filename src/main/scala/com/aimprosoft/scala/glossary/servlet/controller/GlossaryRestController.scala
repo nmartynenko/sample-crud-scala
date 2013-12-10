@@ -31,7 +31,7 @@ class GlossaryRestController extends BaseController {
   @throws[GlossaryException]
   def getGlossaries(@RequestParam(value = "startRow", required = false, defaultValue = "0") startRow: Int,
                     @RequestParam(value = "pageSize", required = false, defaultValue = "0") pageSize: Int) = {
-    new GlossaryList(glossaryService.getCurrentPage(startRow, pageSize))
+    GlossaryList(glossaryService.getCurrentPage(startRow, pageSize))
   }
 
   @RequestMapping(value = Array("/glossaries/{id}"),

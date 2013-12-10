@@ -60,7 +60,7 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
       //validation of nested objects
       val fields = getFields(target)
       for (field <- fields) {
-        val validate = field.getAnnotation(classOf[SpringValidateNestedProperty])
+        val validate = field getAnnotation classOf[SpringValidateNestedProperty]
         if (validate != null) {
           if (!field.isAccessible) {
             field.setAccessible(true)
@@ -101,7 +101,7 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
               case c: Seq[_] =>
                 handleSequences(c)
 
-              //valueToValidate is a collection
+              //valueToValidate is a map
               case m: util.Map[_, _] =>
                 handleMap(m.toMap)
               case m: Map[_, _] =>

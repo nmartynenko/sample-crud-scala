@@ -2,7 +2,7 @@ package com.aimprosoft.scala.glossary.test
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.hamcrest.Matchers._
-import org.junit.{Ignore, FixMethodOrder, Before, Test}
+import org.junit.{FixMethodOrder, Before, Test}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitSuite
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +20,7 @@ import org.junit.runners.MethodSorters
 
 @RunWith(classOf[SpringJUnit4ClassRunner])
 @WebAppConfiguration
-@ContextConfiguration(locations = Array("classpath:spring/spring-common.xml",//ignore security
+@ContextConfiguration(locations = Array("classpath:spring/spring-common.xml", //ignore security
   "classpath:spring/spring-db.xml",
   "classpath:servlet/glossary-servlet.xml"))
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -63,9 +63,9 @@ class RestTest extends JUnitSuite {
     mockMvc
       //call glossaries list with parameters
       .perform(get("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .param("startRow", "2")
-      .param("pageSize", "2")
+        .contentType(MediaType.APPLICATION_JSON)
+        .param("startRow", "2")
+        .param("pageSize", "2")
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -86,9 +86,9 @@ class RestTest extends JUnitSuite {
     mockMvc
       //call glossaries list with incorrect parameters
       .perform(get("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .param("startRow", "100500")
-      .param("pageSize", "2")
+        .contentType(MediaType.APPLICATION_JSON)
+        .param("startRow", "100500")
+        .param("pageSize", "2")
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -138,8 +138,8 @@ class RestTest extends JUnitSuite {
     mockMvc
       //try to add a new glossary
       .perform(put("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -157,8 +157,8 @@ class RestTest extends JUnitSuite {
     mockMvc
       //try to add a new glossary
       .perform(put("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is invalid
       .andExpect(status().isBadRequest)
@@ -167,14 +167,14 @@ class RestTest extends JUnitSuite {
   @Test
   def `08 add invalid glossary`() {
     val glossary = new Glossary()
-    glossary.setName(null)//incorrect value
+    glossary.setName(null) //incorrect value
     glossary.setDescription("Test glossary's description")
 
     mockMvc
       //try to add a new glossary, which contains invalid value
       .perform(put("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is invalid
       .andExpect(status().isBadRequest)
@@ -186,18 +186,18 @@ class RestTest extends JUnitSuite {
       .andExpect(jsonPath("$.description").doesNotExist())
   }
 
-  @Ignore("unexpected behaviour, seems to Hibernate/HSQLDB issue")
+  @Test
   def `09 update valid glossary`() {
     val glossary = new Glossary()
     glossary.setId(2L)
-    glossary.setName("Test glossary")
+    glossary.setName("Test valid glossary")
     glossary.setDescription("Test glossary's description")
 
     mockMvc
       //try to update existing glossary
       .perform(post("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -205,41 +205,41 @@ class RestTest extends JUnitSuite {
       .andExpect(content().string(""))
   }
 
-  @Ignore("unexpected behaviour, seems to Hibernate/HSQLDB issue")
+  @Test
   def `10 update invalid glossary`() {
     val glossary = new Glossary()
     glossary.setId(2L)
-    glossary.setName("Test glossary")
-    glossary.setDescription(null)//incorrect value
+    glossary.setName(null)
+    glossary.setDescription("Doesn't matter") //incorrect value
 
     mockMvc
       //try to update existing glossary, which contains invalid value
       .perform(post("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is invalid
       .andExpect(status().isBadRequest)
       //content type is JSON
       .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
       //error should be about description
-      .andExpect(jsonPath("$.description").value(not(nullValue())))
+      .andExpect(jsonPath("$.name").value(not(nullValue())))
       //but not name
-      .andExpect(jsonPath("$.name").doesNotExist())
+      .andExpect(jsonPath("$.description").doesNotExist())
   }
 
-  @Ignore("unexpected behaviour, seems to Hibernate/HSQLDB issue")
+  @Test
   def `11 update glossary with non existing ID`() {
     val glossary = new Glossary()
     glossary.setId(100L)
-    glossary.setName("Test glossary")
+    glossary.setName("Test not-existing glossary")
     glossary.setDescription("Test glossary description")
 
     mockMvc
       //try to update existing glossary, which contains non-existing ID
       .perform(post("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -247,18 +247,18 @@ class RestTest extends JUnitSuite {
       .andExpect(content().string(""))
   }
 
-  @Ignore("unexpected behaviour, seems to Hibernate/HSQLDB issue")
+  @Test
   def `12 update glossary with null ID`() {
     val glossary = new Glossary()
     glossary.setId(null)
-    glossary.setName("Test glossary")
+    glossary.setName("Test null-IDs glossary")
     glossary.setDescription("Test glossary description")
 
     mockMvc
       //try to update existing glossary, which contains null ID value
       .perform(post("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -271,8 +271,8 @@ class RestTest extends JUnitSuite {
     mockMvc
       //call glossaries with correct glossary ID
       .perform(post("/glossaries")
-      .contentType(MediaType.ALL)
-      .param("glossaryId", "1")
+        .contentType(MediaType.ALL)
+        .param("glossaryId", "1")
       )
       //everything should be OK
       .andExpect(status().isOk)
@@ -283,12 +283,13 @@ class RestTest extends JUnitSuite {
     mockMvc
       //call glossaries with incorrect glossary ID
       .perform(post("/glossaries")
-      .contentType(MediaType.ALL)
-      .param("glossaryId", "100")
+        .contentType(MediaType.ALL)
+        .param("glossaryId", "100")
       )
       //it should return error status
       .andExpect(status().isBadRequest)
       //and message should contain ID of wrong value
       .andExpect(content().string(containsString("100")))
   }
+
 }

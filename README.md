@@ -11,7 +11,7 @@ Basically it is pretty straight-forward port of [sample-crud-mvc](https://github
 ### Applied technologies ###
 The major thing is that all back-end is written with [Scala](http://scala-lang.org/)
 
-Here is stack of Java-based technologies:
+Here is a stack of Java-based technologies:
 
 - [Jetty](http://www.eclipse.org/jetty/) &mdash; embedded web-container;
 
@@ -31,7 +31,17 @@ Here is stack of Java-based technologies:
 
 - [slf4j](http://www.slf4j.org/) &mdash; Logger facade (with [log4j](http://logging.apache.org/log4j/) adapter);
 
-And things, which may be presented, but not be used.
+And other things, which may be presented, but not be used.
+
+Here is a stack of Scala-based technologies:
+
+- [Scala](http://www.scala-lang.org/) &mdash; beautiful [JVM-based language](http://en.wikipedia.org/wiki/List_of_JVM_languages), which is fully compatible with Java libraries;
+
+- [Spring Scala](https://github.com/spring-projects/spring-scala) &mdash; Spring support of Scala's classes and Scala's friendly wrappers;
+
+- [Jackson Scala module](https://github.com/FasterXML/jackson-module-scala) &mdash; Jackson support for Scala's classes;
+
+- [Scala Test](http://scalatest.org/) &mdash; powerful tool for various type of tests and testing idioms;
 
 Here is a stack of Javascript-based technologies:
 
@@ -81,7 +91,7 @@ In ```/etc``` folder of project there is [curl](http://curl.haxx.se/)-based samp
 ### Dependencies ###
 For launching application you must to have installed:
 
-- <a href="http://www.oracle.com/technetwork/java/index.html">Java</a> with exposed JAVA_HOME env variable
+- <a href="http://www.oracle.com/technetwork/java/index.html">Java</a> with exposed ```JAVA_HOME``` env variable
 
 - <a href="http://maven.apache.org/">Maven</a> with exposed ```mvn``` executable
 

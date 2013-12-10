@@ -1,8 +1,10 @@
-package com.aimprosoft.scala
+package com.aimprosoft.scala.development
 
 import org.eclipse.jetty.server.{Server, ServerConnector}
 import org.eclipse.jetty.webapp.WebAppContext
 
+//this class is intended to be for development purposes
+//in general project needs to be packaged as WAR file
 object JettyMain extends App {
 
   val server = new Server

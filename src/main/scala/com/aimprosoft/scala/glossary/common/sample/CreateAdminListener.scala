@@ -26,7 +26,7 @@ class CreateAdminListener {
     user.email = "admin@example.com"
     user.password = "admin"
     user.name = "Sample Admin"
-    user.role = UserRole.ADMIN.toString
+    user.role = UserRole.ADMIN
 
     userService.addUser(user)
 
