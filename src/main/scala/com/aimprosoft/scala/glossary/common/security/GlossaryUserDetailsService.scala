@@ -29,14 +29,14 @@ class GlossaryUserDetailsService extends UserDetailsService {
         )
 
         //set actual DB user for possible further purposes
-        userDetails.setUser(user)
+        userDetails.user = user
 
         userDetails
     }
   }
 
 
-  def getGrantedAuthorities(user: User): util.Collection[_ <: GrantedAuthority] = {
+  private def getGrantedAuthorities(user: User) = {
     var userRoles = List(UserRole.USER)
 
     if (user.role == UserRole.ADMIN){

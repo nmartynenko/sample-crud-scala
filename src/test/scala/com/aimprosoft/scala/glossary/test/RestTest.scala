@@ -270,9 +270,8 @@ class RestTest extends JUnitSuite {
   def `13 remove existing glossary`() {
     mockMvc
       //call glossaries with correct glossary ID
-      .perform(post("/glossaries")
+      .perform(delete("/glossaries/1")
         .contentType(MediaType.ALL)
-        .param("glossaryId", "1")
       )
       //everything should be OK
       .andExpect(status().isOk)
@@ -282,9 +281,8 @@ class RestTest extends JUnitSuite {
   def `14 remove non-existing glossary`() {
     mockMvc
       //call glossaries with incorrect glossary ID
-      .perform(post("/glossaries")
+      .perform(delete("/glossaries/100")
         .contentType(MediaType.ALL)
-        .param("glossaryId", "100")
       )
       //it should return error status
       .andExpect(status().isBadRequest)

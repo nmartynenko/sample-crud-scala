@@ -67,14 +67,12 @@ class GlossaryRestController extends BaseController {
     glossaryService.updateGlossary(glossary)
   }
 
-  @RequestMapping(value = Array("/glossaries"),
-    //method = Array(RequestMethod.DELETE))
-    //only GET, POST, PUT allowed
-    method = Array(RequestMethod.POST)
+  @RequestMapping(value = Array("/glossaries/{glossaryId}"),
+    method = Array(RequestMethod.DELETE)
   )
   @ResponseBody
   @throws[GlossaryException]
-  def removeGlossary(@RequestParam("glossaryId") glossaryId: Long) {
+  def removeGlossary(@PathVariable("glossaryId") glossaryId: Long) {
     glossaryService.removeGlossaryById(glossaryId)
   }
 }

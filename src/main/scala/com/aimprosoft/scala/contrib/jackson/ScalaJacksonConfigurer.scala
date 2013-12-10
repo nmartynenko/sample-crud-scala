@@ -6,7 +6,7 @@ import scala.beans.BeanProperty
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import org.springframework.util.Assert
 
-class ScalaJacksonConfigurer extends InitializingBean{
+class ScalaJacksonConfigurer extends InitializingBean {
 
   @BeanProperty
   var objectMapper: ObjectMapper = _
