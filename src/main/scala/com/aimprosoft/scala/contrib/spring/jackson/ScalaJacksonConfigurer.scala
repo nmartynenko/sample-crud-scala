@@ -1,4 +1,4 @@
-package com.aimprosoft.scala.contrib.jackson
+package com.aimprosoft.scala.contrib.spring.jackson
 
 import org.springframework.beans.factory.InitializingBean
 import com.fasterxml.jackson.databind.ObjectMapper

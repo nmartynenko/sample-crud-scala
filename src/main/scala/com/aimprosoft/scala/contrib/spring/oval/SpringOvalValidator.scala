@@ -1,4 +1,4 @@
-package com.aimprosoft.scala.contrib.spring.validator
+package com.aimprosoft.scala.contrib.spring.oval
 
 import java.lang.{reflect => jreflect}
 import java.util
@@ -8,7 +8,6 @@ import net.sf.oval.{ConstraintViolation, Validator}
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.util.Assert
 import org.springframework.validation.Errors
-import scala.beans.BeanProperty
 
 //Java2Scala conversions and vice versa
 import scala.collection.JavaConversions._
@@ -18,15 +17,10 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
   //using such type because of Java&Scala interoperability issues, e.g. ambiguity of methods execution
   private type Validatable = {def validate(o: Object): util.List[ConstraintViolation]}
 
-  @BeanProperty
   var validator: Validator = _
 
   def SpringOvalValidator() {
-    validator = new Validator()
-  }
-
-  def SpringOvalValidator(validator: Validator) {
-    this.validator = validator
+    validator = new Validator
   }
 
   def supports(clazz: Class[_]) = {

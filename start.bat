@@ -1,1 +1,1 @@
-cmd clean /c mvn compile -P start-jetty
+cmd /c mvn clean jetty:run

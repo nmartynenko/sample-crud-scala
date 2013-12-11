@@ -9,7 +9,7 @@ This is sample Scala application, which is represented as:
 Basically it is pretty straight-forward port of [sample-crud-mvc](https://github.com/nmartynenko/sample-crud-mvc/) project
 
 ### Applied technologies ###
-The major thing is that all back-end is written with [Scala](http://scala-lang.org/)
+The major difference from the original is that all back-end is written with [Scala](http://en.wikipedia.org/wiki/Scala_%28programming_language%29)
 
 Here is a stack of Java-based technologies:
 
@@ -88,12 +88,20 @@ __Note__: by default, DB is In-Memory only, therefore all changes will disappear
 ### REST testing ###
 In ```/etc``` folder of project there is [curl](http://curl.haxx.se/)-based sample of collaborating with REST-server in non-browser environment (for *nix and win platforms).
 
+### Tested with ###
+- [Jetty](http://www.eclipse.org/jetty/) embedded
+- [Jetty maven plugin](http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html)
+- Jetty standalone
+- [Tomcat](http://tomcat.apache.org/) standalone
+
 ### Dependencies ###
 For launching application you must to have installed:
 
 - <a href="http://www.oracle.com/technetwork/java/index.html">Java</a> with exposed ```JAVA_HOME``` env variable
 
 - <a href="http://maven.apache.org/">Maven</a> with exposed ```mvn``` executable
+
+- Internet connection (at least all necessary artifacts must be present)
 
 ### Known Issues ###
 This application is for training purposes of technologies listed above.

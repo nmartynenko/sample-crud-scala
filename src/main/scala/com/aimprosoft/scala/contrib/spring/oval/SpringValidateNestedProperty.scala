@@ -1,4 +1,4 @@
-package com.aimprosoft.scala.contrib.spring.validator
+package com.aimprosoft.scala.contrib.spring.oval
 
 import java.lang.annotation._
 
