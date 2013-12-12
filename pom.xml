@@ -466,7 +466,7 @@
                     <showDeprecation>${show.deprecations}</showDeprecation>
                     <showWarnings>true</showWarnings>
                     <encoding>UTF-8</encoding>
-                    <!--Exclude internal packages by default-->
+                    <!--Exclude development packages by default-->
                     <excludes>
                         <exclude>**/development/**</exclude>
                     </excludes>

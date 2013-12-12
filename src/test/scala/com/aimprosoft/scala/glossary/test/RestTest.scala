@@ -50,9 +50,9 @@ class RestTest extends BaseTest {
     mockMvc
       //call glossaries list with parameters
       .perform(get("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .param("startRow", "2")
-      .param("pageSize", "2")
+        .contentType(MediaType.APPLICATION_JSON)
+        .param("startRow", "2")
+        .param("pageSize", "2")
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -73,9 +73,9 @@ class RestTest extends BaseTest {
     mockMvc
       //call glossaries list with incorrect parameters
       .perform(get("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .param("startRow", "100500")
-      .param("pageSize", "2")
+        .contentType(MediaType.APPLICATION_JSON)
+        .param("startRow", "100500")
+        .param("pageSize", "2")
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -119,14 +119,14 @@ class RestTest extends BaseTest {
   @Test
   def `06 add valid glossary`() {
     val glossary = new Glossary()
-    glossary.setName("Test glossary")
-    glossary.setDescription("Test glossary's description")
+    glossary.name = "Test glossary"
+    glossary.description = "Test glossary's description"
 
     mockMvc
       //try to add a new glossary
       .perform(put("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -137,15 +137,15 @@ class RestTest extends BaseTest {
   @Test
   def `07 add glossary with non existing ID`() {
     val glossary = new Glossary()
-    glossary.setId(100500L)
-    glossary.setName("Try to add not-existing glossary")
-    glossary.setDescription("Test glossary description")
+    glossary.id = 100500L
+    glossary.name = "Try to add not-existing glossary"
+    glossary.description = "Test glossary description"
 
     mockMvc
       //try to update existing glossary, which contains non-existing ID
       .perform(put("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -156,15 +156,15 @@ class RestTest extends BaseTest {
   @Test
   def `08 add glossary with existing name`() {
     val glossary = new Glossary()
-    glossary.setId(12345L)
-    glossary.setName("Test glossary")
-    glossary.setDescription("Test glossary's description")
+    glossary.id = 12345L
+    glossary.name = "Test glossary"
+    glossary.description = "Test glossary's description"
 
     mockMvc
       //try to add a new glossary
       .perform(put("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is invalid
       .andExpect(status().isBadRequest)
@@ -173,14 +173,14 @@ class RestTest extends BaseTest {
   @Test
   def `09 add invalid glossary`() {
     val glossary = new Glossary()
-    glossary.setName(null) //incorrect value
-    glossary.setDescription("Test glossary's description")
+    glossary.name = null //incorrect value
+    glossary.description = "Test glossary's description"
 
     mockMvc
       //try to add a new glossary, which contains invalid value
       .perform(put("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is invalid
       .andExpect(status().isBadRequest)
@@ -195,15 +195,15 @@ class RestTest extends BaseTest {
   @Test
   def `10 update valid glossary`() {
     val glossary = new Glossary()
-    glossary.setId(2L)
-    glossary.setName("Test valid glossary")
-    glossary.setDescription("Test glossary's description")
+    glossary.id = 2L
+    glossary.name = "Test valid glossary"
+    glossary.description = "Test glossary's description"
 
     mockMvc
       //try to update existing glossary
       .perform(post("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -214,15 +214,15 @@ class RestTest extends BaseTest {
   @Test
   def `11 update invalid glossary`() {
     val glossary = new Glossary()
-    glossary.setId(2L)
-    glossary.setName(null)
-    glossary.setDescription("Doesn't matter") //incorrect value
+    glossary.id = 2L
+    glossary.name = null //incorrect value
+    glossary.description = "Doesn't matter"
 
     mockMvc
       //try to update existing glossary, which contains invalid value
       .perform(post("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is invalid
       .andExpect(status().isBadRequest)
@@ -237,15 +237,15 @@ class RestTest extends BaseTest {
   @Test
   def `12 update glossary with non existing ID`() {
     val glossary = new Glossary()
-    glossary.setId(100L)
-    glossary.setName("Test not-existing glossary")
-    glossary.setDescription("Test glossary description")
+    glossary.id = 100L
+    glossary.name = "Test not-existing glossary"
+    glossary.description = "Test glossary description"
 
     mockMvc
       //try to update existing glossary, which contains non-existing ID
       .perform(post("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -256,15 +256,15 @@ class RestTest extends BaseTest {
   @Test
   def `13 update glossary with null ID`() {
     val glossary = new Glossary()
-    glossary.setId(null)
-    glossary.setName("Test null-IDs glossary")
-    glossary.setDescription("Test glossary description")
+    glossary.id = null
+    glossary.name = "Test null-IDs glossary"
+    glossary.description = "Test glossary description"
 
     mockMvc
       //try to update existing glossary, which contains null ID value
       .perform(post("/glossaries")
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(glossary))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -276,9 +276,7 @@ class RestTest extends BaseTest {
   def `14 remove existing glossary`() {
     mockMvc
       //call glossaries with correct glossary ID
-      .perform(delete("/glossaries/1")
-      .contentType(MediaType.ALL)
-      )
+      .perform(delete("/glossaries/1").contentType(MediaType.ALL))
       //everything should be OK
       .andExpect(status().isOk)
   }
@@ -287,9 +285,7 @@ class RestTest extends BaseTest {
   def `15 remove non-existing glossary`() {
     mockMvc
       //call glossaries with incorrect glossary ID
-      .perform(delete("/glossaries/100")
-      .contentType(MediaType.ALL)
-      )
+      .perform(delete("/glossaries/100").contentType(MediaType.ALL))
       //it should return error status
       .andExpect(status().isBadRequest)
       //and message should contain ID of wrong value
