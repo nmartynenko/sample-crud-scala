@@ -1,43 +1,30 @@
 package com.aimprosoft.scala.glossary.test
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.aimprosoft.scala.glossary.common.model.impl.Glossary
 import org.hamcrest.Matchers._
-import org.junit.{FixMethodOrder, Before, Test}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitSuite
-import org.springframework.beans.factory.annotation.Autowired
+import org.junit.runners.MethodSorters
+import org.junit.{FixMethodOrder, Test}
 import org.springframework.http.MediaType
-import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
-import org.springframework.test.context.web.WebAppConfiguration
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders._
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers._
-import org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup
-import org.springframework.web.context.WebApplicationContext
-import com.aimprosoft.scala.glossary.common.model.impl.Glossary
-import org.junit.runners.MethodSorters
+import org.springframework.test.context.{ContextConfiguration, ContextHierarchy}
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.junit.runner.RunWith
+
 
 @RunWith(classOf[SpringJUnit4ClassRunner])
-@WebAppConfiguration
-@ContextConfiguration(locations = Array("classpath:spring/spring-common.xml", //ignore security
-  "classpath:spring/spring-db.xml",
-  "classpath:servlet/glossary-servlet.xml"))
+@ContextHierarchy(
+  Array(
+    new ContextConfiguration(
+      name = "base",
+      //include sample data
+      locations = Array("classpath:spring/spring-sample-data.xml"),
+      inheritLocations = true
+    )
+  )
+)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class RestTest extends JUnitSuite {
-
-  @Autowired
-  private val wac: WebApplicationContext = null
-
-  @Autowired
-  private val objectMapper: ObjectMapper = null
-
-  private var mockMvc: MockMvc = _
-
-  @Before
-  def setup() {
-    mockMvc = webAppContextSetup(this.wac).build()
-  }
+class RestTest extends BaseTest {
 
   @Test
   def `01 glossaries list should return all items`() {
@@ -63,9 +50,9 @@ class RestTest extends JUnitSuite {
     mockMvc
       //call glossaries list with parameters
       .perform(get("/glossaries")
-        .contentType(MediaType.APPLICATION_JSON)
-        .param("startRow", "2")
-        .param("pageSize", "2")
+      .contentType(MediaType.APPLICATION_JSON)
+      .param("startRow", "2")
+      .param("pageSize", "2")
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -86,9 +73,9 @@ class RestTest extends JUnitSuite {
     mockMvc
       //call glossaries list with incorrect parameters
       .perform(get("/glossaries")
-        .contentType(MediaType.APPLICATION_JSON)
-        .param("startRow", "100500")
-        .param("pageSize", "2")
+      .contentType(MediaType.APPLICATION_JSON)
+      .param("startRow", "100500")
+      .param("pageSize", "2")
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -138,8 +125,8 @@ class RestTest extends JUnitSuite {
     mockMvc
       //try to add a new glossary
       .perform(put("/glossaries")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(glossary))
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -157,8 +144,8 @@ class RestTest extends JUnitSuite {
     mockMvc
       //try to update existing glossary, which contains non-existing ID
       .perform(put("/glossaries")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(glossary))
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -176,8 +163,8 @@ class RestTest extends JUnitSuite {
     mockMvc
       //try to add a new glossary
       .perform(put("/glossaries")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(glossary))
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is invalid
       .andExpect(status().isBadRequest)
@@ -192,8 +179,8 @@ class RestTest extends JUnitSuite {
     mockMvc
       //try to add a new glossary, which contains invalid value
       .perform(put("/glossaries")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(glossary))
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is invalid
       .andExpect(status().isBadRequest)
@@ -215,8 +202,8 @@ class RestTest extends JUnitSuite {
     mockMvc
       //try to update existing glossary
       .perform(post("/glossaries")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(glossary))
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -234,8 +221,8 @@ class RestTest extends JUnitSuite {
     mockMvc
       //try to update existing glossary, which contains invalid value
       .perform(post("/glossaries")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(glossary))
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is invalid
       .andExpect(status().isBadRequest)
@@ -257,8 +244,8 @@ class RestTest extends JUnitSuite {
     mockMvc
       //try to update existing glossary, which contains non-existing ID
       .perform(post("/glossaries")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(glossary))
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -276,8 +263,8 @@ class RestTest extends JUnitSuite {
     mockMvc
       //try to update existing glossary, which contains null ID value
       .perform(post("/glossaries")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(glossary))
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(objectMapper.writeValueAsString(glossary))
       )
       //expect result is valid
       .andExpect(status().isOk)
@@ -290,7 +277,7 @@ class RestTest extends JUnitSuite {
     mockMvc
       //call glossaries with correct glossary ID
       .perform(delete("/glossaries/1")
-        .contentType(MediaType.ALL)
+      .contentType(MediaType.ALL)
       )
       //everything should be OK
       .andExpect(status().isOk)
@@ -301,7 +288,7 @@ class RestTest extends JUnitSuite {
     mockMvc
       //call glossaries with incorrect glossary ID
       .perform(delete("/glossaries/100")
-        .contentType(MediaType.ALL)
+      .contentType(MediaType.ALL)
       )
       //it should return error status
       .andExpect(status().isBadRequest)

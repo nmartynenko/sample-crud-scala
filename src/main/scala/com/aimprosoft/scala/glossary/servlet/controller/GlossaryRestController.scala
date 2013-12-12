@@ -6,6 +6,7 @@ import com.aimprosoft.scala.glossary.common.service.GlossaryService
 import com.aimprosoft.scala.glossary.servlet.model.GlossaryList
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Controller
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation._
@@ -45,6 +46,7 @@ class GlossaryRestController extends BaseController {
     glossaryService.getGlossaryById(id)
   }
 
+  @PreAuthorize("hasAnyRole('ADMIN')")
   @RequestMapping(value = Array("/glossaries"),
     method = Array(RequestMethod.PUT),
     consumes = Array(
@@ -56,6 +58,7 @@ class GlossaryRestController extends BaseController {
     glossaryService.addGlossary(glossary)
   }
 
+  @PreAuthorize("hasAnyRole('ADMIN')")
   @RequestMapping(value = Array("/glossaries"),
     method = Array(RequestMethod.POST),
     consumes = Array(
@@ -67,6 +70,7 @@ class GlossaryRestController extends BaseController {
     glossaryService.updateGlossary(glossary)
   }
 
+  @PreAuthorize("hasAnyRole('ADMIN')")
   @RequestMapping(value = Array("/glossaries/{glossaryId}"),
     method = Array(RequestMethod.DELETE)
   )
