@@ -394,6 +394,9 @@ class RestTest extends BaseTest {
 
     //number of glossaries has decreased by one
     assertResult(startGlossariesCount - 1)(endGlossariesCount)
+
+    //this glossary is no longer present in DB
+    assume(!glossaryPersistence.exists(id))
   }
 
   @Test
