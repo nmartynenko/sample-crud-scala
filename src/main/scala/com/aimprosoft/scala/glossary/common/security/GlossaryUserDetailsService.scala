@@ -35,20 +35,24 @@ class GlossaryUserDetailsService extends UserDetailsService {
     }
   }
 
-
   private def getGrantedAuthorities(user: User) = {
-    var userRoles = List(UserRole.USER)
-
-    if (user.role == UserRole.ADMIN){
-      userRoles = UserRole.ADMIN :: userRoles
+    val userRoles = user.role match {
+      case UserRole.ADMIN =>
+        GlossaryUserDetailsService.ADMIN_ROLES
+      case UserRole.USER =>
+        GlossaryUserDetailsService.USER_ROLES
+      case _ =>
+        Nil
     }
 
-    val grantedAuthorities = new util.ArrayList[GrantedAuthority](userRoles.size)
-
-    for (authority <- userRoles) {
-      grantedAuthorities.add(new SimpleGrantedAuthority(authority.toString))
+    userRoles map {role =>
+        new SimpleGrantedAuthority(role.toString)
     }
-
-    grantedAuthorities
   }
+}
+
+//set of constants
+object GlossaryUserDetailsService{
+  val ADMIN_ROLES = List(UserRole.USER, UserRole.ADMIN)
+  val USER_ROLES = List(UserRole.USER)
 }

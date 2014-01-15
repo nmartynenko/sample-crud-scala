@@ -2,7 +2,6 @@ package com.aimprosoft.scala.glossary.common.service
 
 import com.aimprosoft.scala.glossary.common.exception.GlossaryException
 import com.aimprosoft.scala.glossary.common.model.impl.Glossary
-import java.lang.Long
 import org.springframework.data.domain.Page
 import org.springframework.security.access.prepost.PreAuthorize
 import scala.throws
@@ -13,7 +12,7 @@ trait GlossaryService {
   def getCurrentPage(startRow: Int, pageSize: Int): Page[Glossary]
 
   @throws[GlossaryException]
-  def getGlossaryById(glossaryId: Long): Glossary
+  def getGlossaryById(glossaryId: java.lang.Long): Glossary
 
   @throws[GlossaryException]
   @PreAuthorize("hasRole('ADMIN')")

@@ -18,7 +18,6 @@ class CreateAdminListener {
   private val userService: UserService = null
 
   @PostConstruct
-  @throws[Exception]
   def init() {
     _logger.info("Start adding sample admin")
 

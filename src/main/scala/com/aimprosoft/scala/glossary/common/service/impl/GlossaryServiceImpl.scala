@@ -4,7 +4,6 @@ import com.aimprosoft.scala.glossary.common.exception.{NoGlossaryFoundException,
 import com.aimprosoft.scala.glossary.common.model.impl.Glossary
 import com.aimprosoft.scala.glossary.common.persistence.GlossaryPersistence
 import com.aimprosoft.scala.glossary.common.service.GlossaryService
-import java.lang.Long
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.data.domain.{Page, PageRequest,Pageable}
@@ -33,7 +32,7 @@ class GlossaryServiceImpl extends GlossaryService {
   }
 
   @throws[GlossaryException]
-  def getGlossaryById(glossaryId: Long): Glossary = {
+  def getGlossaryById(glossaryId: java.lang.Long): Glossary = {
     try {
       val glossary = glossaryPersistence.findOne(glossaryId)
 

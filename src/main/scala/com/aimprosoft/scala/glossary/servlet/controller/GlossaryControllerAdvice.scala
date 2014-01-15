@@ -7,7 +7,6 @@ import org.springframework.security.core.AuthenticationException
 import org.springframework.validation.{FieldError, Errors}
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.{ResponseStatus, ExceptionHandler, ResponseBody, ControllerAdvice}
-import scala.collection.mutable
 
 //Java2Scala conversions and vice versa
 import scala.collection.JavaConversions._
@@ -54,11 +53,7 @@ class GlossaryControllerAdvice extends BaseController {
   }
 
   private def transformErrors(errors: Errors) = {
-    val errorsMap = mutable.Map[String, String]()
-
-    val allErrors = errors.getAllErrors.toList
-
-    for (error <- allErrors) {
+    (errors.getAllErrors map {error =>
       val objectName = error match {
         case error: FieldError =>
           error.getField
@@ -66,10 +61,11 @@ class GlossaryControllerAdvice extends BaseController {
           error.getObjectName
       }
 
-      errorsMap.put(objectName,
-        messageSource.getMessage(error.getDefaultMessage, Array(objectName), getLocale))
-    }
+      val message = messageSource.getMessage(error.getDefaultMessage, Array(objectName),
+        getLocale)
 
-    errorsMap
+      //return tuple, set of which naturally transforms into Map
+      (objectName, message)
+    }).toMap
   }
 }
