@@ -92,7 +92,8 @@ In ```/etc``` folder of project there is [curl](http://curl.haxx.se/)-based samp
 - [Jetty](http://www.eclipse.org/jetty/) embedded
 - [Jetty maven plugin](http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html)
 - Jetty standalone
-- [Tomcat](http://tomcat.apache.org/) standalone
+- [Tomcat](http://tomcat.apache.org/) embedded (6/7)
+- Tomcat standalone
 
 ### Dependencies ###
 For launching application you must to have installed:

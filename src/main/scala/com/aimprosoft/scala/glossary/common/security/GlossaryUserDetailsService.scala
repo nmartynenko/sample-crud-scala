@@ -3,12 +3,9 @@ package com.aimprosoft.scala.glossary.common.security
 import com.aimprosoft.scala.glossary.common.model.UserRole
 import com.aimprosoft.scala.glossary.common.model.impl.User
 import com.aimprosoft.scala.glossary.common.service.UserService
-import java.util
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.{UsernameNotFoundException, UserDetails, UserDetailsService}
-import scala._
 
 class GlossaryUserDetailsService extends UserDetailsService {
 
