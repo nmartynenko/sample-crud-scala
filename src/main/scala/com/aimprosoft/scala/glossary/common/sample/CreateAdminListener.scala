@@ -19,16 +19,18 @@ class CreateAdminListener {
 
   @PostConstruct
   def init() {
-    _logger.info("Start adding sample admin")
+    if (userService.countByRole(UserRole.ADMIN) == 0) {
+      _logger.info("Start adding sample admin")
 
-    val user = new User()
-    user.email = "admin@example.com"
-    user.password = "admin"
-    user.name = "Sample Admin"
-    user.role = UserRole.ADMIN
+      val user = new User()
+      user.email = "admin@example.com"
+      user.password = "admin"
+      user.name = "Sample Admin"
+      user.role = UserRole.ADMIN
 
-    userService.addUser(user)
+      userService.add(user)
 
-    _logger.info("Sample admin has been added successfully")
+      _logger.info("Sample admin has been added successfully")
+    }
   }
 }

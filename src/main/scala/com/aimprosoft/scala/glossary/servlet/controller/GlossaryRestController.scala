@@ -39,7 +39,7 @@ class GlossaryRestController extends BaseController {
     ))
   @ResponseBody
   def getGlossary(@PathVariable id: Long) = {
-    glossaryService.getGlossaryById(id)
+    glossaryService.getById(id)
   }
 
   @PreAuthorize("hasAnyRole('ADMIN')")
@@ -50,7 +50,7 @@ class GlossaryRestController extends BaseController {
     ))
   @ResponseBody
   def saveGlossary(@RequestBody @Validated glossary: Glossary) {
-    glossaryService.addGlossary(glossary)
+    glossaryService.add(glossary)
   }
 
   @PreAuthorize("hasAnyRole('ADMIN')")
@@ -61,7 +61,7 @@ class GlossaryRestController extends BaseController {
     ))
   @ResponseBody
   def updateGlossary(@RequestBody @Validated glossary: Glossary) {
-    glossaryService.updateGlossary(glossary)
+    glossaryService.update(glossary)
   }
 
   @PreAuthorize("hasAnyRole('ADMIN')")
@@ -70,6 +70,6 @@ class GlossaryRestController extends BaseController {
   )
   @ResponseBody
   def removeGlossary(@PathVariable("glossaryId") glossaryId: Long) {
-    glossaryService.removeGlossaryById(glossaryId)
+    glossaryService.removeById(glossaryId)
   }
 }

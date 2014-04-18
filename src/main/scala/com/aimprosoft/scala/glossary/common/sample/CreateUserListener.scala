@@ -18,16 +18,19 @@ class CreateUserListener {
 
   @PostConstruct
   def init() {
-    _logger.info("Start adding sample user")
+    if (userService.countByRole(UserRole.ADMIN) == 0) {
 
-    val user = new User()
-    user.email = "user@example.com"
-    user.password = "user"
-    user.name = "Sample User"
-    user.role = UserRole.USER
+      _logger.info("Start adding sample user")
 
-    userService.addUser(user)
+      val user = new User()
+      user.email = "user@example.com"
+      user.password = "user"
+      user.name = "Sample User"
+      user.role = UserRole.USER
 
-    _logger.info("Sample user has been added successfully")
+      userService.add(user)
+
+      _logger.info("Sample user has been added successfully")
+    }
   }
 }
