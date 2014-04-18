@@ -1,4 +1,4 @@
-## Sample CRUD application ##
+## Sample CRUD application [![Build Status](https://travis-ci.org/nmartynenko/sample-crud-scala.png?branch=master)](https://travis-ci.org/nmartynenko/sample-crud-scala)
 
 This is sample Scala application, which is represented as:
 
