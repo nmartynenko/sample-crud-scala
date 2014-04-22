@@ -1,12 +1,12 @@
 package com.aimprosoft.scala.glossary.servlet.controller
 
-import com.aimprosoft.scala.glossary.common.exception.{GlossaryException, NoGlossaryFoundException}
+import org.springframework.dao.DataAccessException
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.AuthenticationException
 import org.springframework.validation.{FieldError, Errors}
 import org.springframework.web.bind.MethodArgumentNotValidException
-import org.springframework.web.bind.annotation.{ResponseStatus, ExceptionHandler, ResponseBody, ControllerAdvice}
+import org.springframework.web.bind.annotation._
 
 //Java2Scala conversions and vice versa
 import scala.collection.JavaConversions._
@@ -16,17 +16,9 @@ class GlossaryControllerAdvice extends BaseController {
 
   //EXCEPTION HANDLERS
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(value = Array(classOf[NoGlossaryFoundException]))
+  @ExceptionHandler(value = Array(classOf[DataAccessException]))
   @ResponseBody
-  def handleNoGlossaryFoundException(e: NoGlossaryFoundException) = {
-    messageSource.getMessage("sample.error.glossary.not.found",
-      Array(e.getModelId), getLocale)
-  }
-
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(value = Array(classOf[GlossaryException]))
-  @ResponseBody
-  def handleGlossaryException(e: GlossaryException) = {
+  def handleDataAccessException(e: DataAccessException) = {
     simpleExceptionHandler(e)
   }
 

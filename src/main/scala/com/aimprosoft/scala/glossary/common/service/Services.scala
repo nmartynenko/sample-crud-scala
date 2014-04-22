@@ -32,7 +32,6 @@ trait BaseCrudService[T <: BusinessModel] {
 
 trait GlossaryService extends BaseCrudService[Glossary]
 
-@Transactional(readOnly = true)
 trait UserService extends BaseCrudService[User]{
 
   def getByEmail(username: String): User

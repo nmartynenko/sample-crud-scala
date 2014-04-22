@@ -18,7 +18,7 @@ class CreateUserListener {
 
   @PostConstruct
   def init() {
-    if (userService.countByRole(UserRole.ADMIN) == 0) {
+    if (userService.countByRole(UserRole.USER) == 0) {
 
       _logger.info("Start adding sample user")
 

@@ -2,10 +2,12 @@ package com.aimprosoft.scala.glossary.common.service.impl
 
 import com.aimprosoft.scala.glossary.common.model.BusinessModel
 import com.aimprosoft.scala.glossary.common.service.BaseCrudService
+import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.data.domain.{PageRequest, Pageable, Page}
 import org.springframework.data.jpa.repository.JpaRepository
+import scala.reflect.runtime.{universe => ru}
 
-abstract class BaseCrudServiceImpl[T <: BusinessModel, P <: JpaRepository[T, java.lang.Long]] extends BaseCrudService[T]{
+abstract class BaseCrudServiceImpl[T <: BusinessModel : ru.TypeTag, P <: JpaRepository[T, java.lang.Long]] extends BaseCrudService[T] {
 
   protected val persistence: P
 
@@ -28,23 +30,30 @@ abstract class BaseCrudServiceImpl[T <: BusinessModel, P <: JpaRepository[T, jav
   }
 
   def getById(id: java.lang.Long): T = {
-      persistence.findOne(id)
+    val entity: T = persistence.findOne(id)
+
+    if (entity == null) {
+      throw new EmptyResultDataAccessException(String.format("No %s entity with id %s exists!",
+        ru.typeOf[T], id), 1)
+    }
+
+    entity
   }
 
   def add(entity: T): Unit = {
-      persistence.save(entity)
+    persistence.save(entity)
   }
 
   def update(entity: T): Unit = {
-      persistence.save(entity)
+    persistence.save(entity)
   }
 
   def remove(entity: T): Unit = {
-      persistence.delete(entity)
+    persistence.delete(entity)
   }
 
   def removeById(id: java.lang.Long): Unit = {
-      persistence.delete(id)
+    persistence.delete(id)
   }
 
 }

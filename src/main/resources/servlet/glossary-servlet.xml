@@ -44,6 +44,11 @@
     <!--Handle common exceptions-->
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="/500"/>
+        <property name="statusCodes">
+            <value>
+                /500=500
+            </value>
+        </property>
         <property name="exceptionMappings">
             <value>
                 javax.servlet.UnavailableException=/404
