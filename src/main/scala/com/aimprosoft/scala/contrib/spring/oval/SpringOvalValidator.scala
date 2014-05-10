@@ -8,6 +8,7 @@ import net.sf.oval.{ConstraintViolation, Validator}
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.util.Assert
 import org.springframework.validation.Errors
+import scala.language.reflectiveCalls
 
 //Java2Scala conversions and vice versa
 import scala.collection.JavaConversions._
