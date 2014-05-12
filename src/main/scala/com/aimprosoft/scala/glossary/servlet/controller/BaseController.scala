@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.web.context.request.{ServletRequestAttributes, RequestContextHolder}
+import com.typesafe.scalalogging.slf4j.StrictLogging
 
-trait BaseController {
-
-  protected val _logger: Logger = LoggerFactory.getLogger(getClass)
+trait BaseController extends StrictLogging {
 
   @Autowired
   protected var messageSource: MessageSource = _
@@ -30,7 +29,7 @@ trait BaseController {
 
   //logs exception and returns it's message
   protected def simpleExceptionHandler(th: Throwable) = {
-    _logger.error(th.getMessage, th)
+    logger.error(th.getMessage, th)
 
     th.getMessage
   }

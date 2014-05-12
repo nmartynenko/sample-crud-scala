@@ -7,9 +7,10 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import scala.util.Random
+import com.typesafe.scalalogging.slf4j.StrictLogging
 
 @Service
-class CreateGlossaryDataListener {
+class CreateGlossaryDataListener extends StrictLogging {
   
   private def tear(separator: String)(string: String) = {
     string
@@ -39,14 +40,12 @@ class CreateGlossaryDataListener {
     molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"""
   }
 
-  private val _logger = LoggerFactory.getLogger(getClass)
-
   @Autowired
   private val glossaryPersistence: GlossaryPersistence = null
 
   @PostConstruct
   def init() {
-    _logger.info("Start adding sample glossaries")
+    logger.info("Start adding sample glossaries")
 
     val random = new Random()
 
@@ -61,6 +60,6 @@ class CreateGlossaryDataListener {
       glossaryPersistence.save(glossary)
     }
 
-    _logger.info("End adding sample glossaries")
+    logger.info("End adding sample glossaries")
   }
 }

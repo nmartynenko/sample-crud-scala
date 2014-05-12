@@ -8,10 +8,10 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.Authentication
 import org.springframework.security.authentication.{UsernamePasswordAuthenticationToken, AnonymousAuthenticationToken}
 import org.springframework.security.core.authority.AuthorityUtils
+import com.typesafe.scalalogging.slf4j.StrictLogging
 
-class InvokeAsRunListener extends RunListener with InvokeAsRunListenerPredefinedRoles {
-
-  private val _logger = LoggerFactory.getLogger(getClass)
+class InvokeAsRunListener extends RunListener
+  with InvokeAsRunListenerPredefinedRoles with StrictLogging {
 
   private def authenticateAnonymously(){
     authenticate(ANONYMOUS)
@@ -31,7 +31,7 @@ class InvokeAsRunListener extends RunListener with InvokeAsRunListenerPredefined
   }
 
   override def testStarted(description: Description): Unit = {
-    _logger.debug("Start working on {} method", description.getMethodName)
+    logger.debug("Start working on {} method", description.getMethodName)
 
     description.getAnnotation(classOf[InvokeAs]) match {
       case invokeAs: InvokeAs =>
@@ -40,7 +40,7 @@ class InvokeAsRunListener extends RunListener with InvokeAsRunListenerPredefined
         authenticateAnonymously()
     }
 
-    _logger.debug("End working on {} method", description.getMethodName)
+    logger.debug("End working on {} method", description.getMethodName)
   }
 }
 

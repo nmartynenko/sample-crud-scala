@@ -7,11 +7,10 @@ import javax.annotation.PostConstruct
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import com.typesafe.scalalogging.slf4j.StrictLogging
 
 @Service
-class CreateUserListener {
-
-  private val _logger = LoggerFactory.getLogger(getClass)
+class CreateUserListener extends StrictLogging {
 
   @Autowired
   private val userService: UserService = null
@@ -20,7 +19,7 @@ class CreateUserListener {
   def init() {
     if (userService.countByRole(UserRole.USER) == 0) {
 
-      _logger.info("Start adding sample user")
+      logger.info("Start adding sample user")
 
       val user = new User()
       user.email = "user@example.com"
@@ -30,7 +29,7 @@ class CreateUserListener {
 
       userService.add(user)
 
-      _logger.info("Sample user has been added successfully")
+      logger.info("Sample user has been added successfully")
     }
   }
 }

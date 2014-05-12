@@ -37,6 +37,7 @@
 
         <slf4j.version>1.7.7</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
+        <scala.logging.slf4j>2.1.2</scala.logging.slf4j>
 
         <spring.framework.version>4.0.4.RELEASE</spring.framework.version>
         <spring.security.version>3.2.3.RELEASE</spring.security.version>
@@ -49,7 +50,7 @@
         <guava.version>17.0</guava.version>
 
         <!--Container-->
-        <jetty.version>9.1.4.v20140401</jetty.version>
+        <jetty.version>9.1.5.v20140505</jetty.version>
 
         <maven.test.skip>false</maven.test.skip>
 
@@ -135,6 +136,12 @@
         </dependency>
 
         <!-- Logging dependencies -->
+        <dependency>
+            <groupId>com.typesafe.scala-logging</groupId>
+            <artifactId>scala-logging-slf4j_2.10</artifactId>
+            <version>${scala.logging.slf4j}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
