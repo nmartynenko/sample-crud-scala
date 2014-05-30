@@ -2,7 +2,6 @@ package com.aimprosoft.scala.glossary.util
 
 import org.junit.runner.notification.RunListener
 import org.junit.runner.Description
-import org.slf4j.LoggerFactory
 import com.aimprosoft.scala.glossary.common.model.UserRole
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.Authentication
@@ -35,7 +34,7 @@ class InvokeAsRunListener extends RunListener
 
     description.getAnnotation(classOf[InvokeAs]) match {
       case invokeAs: InvokeAs =>
-        authenticateUser(invokeAs.value())
+        authenticateUser(invokeAs.value)
       case _ =>
         authenticateAnonymously()
     }
@@ -48,9 +47,9 @@ sealed trait InvokeAsRunListenerPredefinedRoles {
 
   private def createUser(userRole: UserRole) = {
     new UsernamePasswordAuthenticationToken(
-      userRole.name().toLowerCase,
+      userRole.name.toLowerCase,
       null,
-      AuthorityUtils.createAuthorityList(userRole.name()))
+      AuthorityUtils.createAuthorityList(userRole.name))
   }
 
   val ANONYMOUS: Authentication =

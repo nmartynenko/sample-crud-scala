@@ -9,9 +9,6 @@ import scala.collection.JavaConversions._
 
 case class GlossaryUserDetails(username: String,
                                password: String,
-                               authorities: List[_ <: GrantedAuthority])
-  extends org.springframework.security.core.userdetails.User(username, password, authorities) {
-
-  @BeanProperty
-  var user: User = _
-}
+                               authorities: List[_ <: GrantedAuthority],
+                               user: User)
+  extends org.springframework.security.core.userdetails.User(username, password, authorities)

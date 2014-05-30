@@ -16,11 +16,8 @@ class RunListenerSpringJUnit4ClassRunner(private val clazz: Class[_])
   }
 
   override def run(notifier: RunNotifier): Unit = {
-    runListener match {
-      case null =>
-        ()
-      case _ =>
-        notifier.addListener(runListener)
+    Option(runListener) foreach {listener =>
+        notifier.addListener(listener)
     }
 
     super.run(notifier)

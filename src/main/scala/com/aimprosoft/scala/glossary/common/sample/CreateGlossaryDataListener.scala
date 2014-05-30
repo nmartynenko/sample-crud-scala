@@ -2,12 +2,11 @@ package com.aimprosoft.scala.glossary.common.sample
 
 import com.aimprosoft.scala.glossary.common.model.impl.Glossary
 import com.aimprosoft.scala.glossary.common.persistence.GlossaryPersistence
+import com.typesafe.scalalogging.slf4j.StrictLogging
 import javax.annotation.PostConstruct
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import scala.util.Random
-import com.typesafe.scalalogging.slf4j.StrictLogging
 
 @Service
 class CreateGlossaryDataListener extends StrictLogging {
@@ -53,9 +52,10 @@ class CreateGlossaryDataListener extends StrictLogging {
 
       val descIndex = random.nextInt(DESCRIPTIONS.length)
 
-      val glossary = new Glossary()
-      glossary.name = TITLES(i)
-      glossary.description = DESCRIPTIONS(descIndex)
+      val glossary = Glossary(
+        name = TITLES(i),
+        description = DESCRIPTIONS(descIndex)
+      )
 
       glossaryPersistence.save(glossary)
     }

@@ -22,11 +22,10 @@ class GlossaryUserDetailsService extends UserDetailsService {
         null
       case _ =>
         val userDetails = GlossaryUserDetails(
-          username, user.password, getGrantedAuthorities(user)
+          username, user.password, getGrantedAuthorities(user),
+          //set actual DB user for possible further purposes
+          user
         )
-
-        //set actual DB user for possible further purposes
-        userDetails.user = user
 
         userDetails
     }
@@ -46,13 +45,16 @@ class GlossaryUserDetailsService extends UserDetailsService {
 
 //set of constants
 object GlossaryUserDetailsService{
-  val ADMIN_ROLES = List(UserRole.USER, UserRole.ADMIN)
-  val ADMIN_AUTHORITIES = ADMIN_ROLES map {role =>
-    new SimpleGrantedAuthority(role.toString)
+  def rolesToAuthorities(roles: List[UserRole]): List[SimpleGrantedAuthority] = {
+    roles map { role =>
+      new SimpleGrantedAuthority(role.toString)
+    }
   }
 
+  val ADMIN_ROLES = List(UserRole.USER, UserRole.ADMIN)
+  val ADMIN_AUTHORITIES = rolesToAuthorities(ADMIN_ROLES)
+
+
   val USER_ROLES = List(UserRole.USER)
-  val USER_AUTHORITIES = USER_ROLES map {role =>
-    new SimpleGrantedAuthority(role.toString)
-  }
+  val USER_AUTHORITIES = rolesToAuthorities(USER_ROLES)
 }

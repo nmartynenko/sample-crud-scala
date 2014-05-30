@@ -60,3 +60,24 @@ class User extends BusinessModel {
     state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
   }
 }
+
+//companion object for convenience and interoperability with Hibernate
+object User {
+
+  def apply(id: java.lang.Long = null,
+             email: String = null,
+             password: String = null,
+             name: String = null,
+             role: UserRole = null): User = {
+    val user = new User
+
+    user.id = id
+    user.email = email
+    user.password = password
+    user.name = name
+    user.role = role
+
+    user
+  }
+
+}

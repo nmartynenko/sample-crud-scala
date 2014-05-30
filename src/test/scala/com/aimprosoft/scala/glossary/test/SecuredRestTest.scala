@@ -52,9 +52,10 @@ class SecuredRestTest extends BaseTest {
   def `try to add glossary as USER`() {
     val startGlossariesCount = glossaryPersistence.count()
 
-    val glossary = new Glossary
-    glossary.name = "User's glossary"
-    glossary.description = "I want to add this"
+    val glossary = Glossary(
+      name = "User's glossary",
+      description = "I want to add this"
+    )
 
     mockMvc
       //try to add new glossary
@@ -76,9 +77,10 @@ class SecuredRestTest extends BaseTest {
   def `try to add glossary as ADMIN`() {
     val startGlossariesCount = glossaryPersistence.count()
 
-    val glossary = new Glossary
-    glossary.name = "Admin's glossary"
-    glossary.description = "I shall add this!"
+    val glossary = Glossary(
+      name = "Admin's glossary",
+      description = "I shall add this!"
+    )
 
     mockMvc
       //try to add new glossary

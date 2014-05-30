@@ -140,9 +140,10 @@ class RestTest extends BaseTest {
   def `add valid glossary`() {
     val startGlossariesCount = glossaryPersistence.count()
 
-    val glossary = new Glossary()
-    glossary.name = "Test glossary"
-    glossary.description = "Test glossary's description"
+    val glossary = Glossary(
+      name = "Test glossary",
+      description = "Test glossary's description"
+    )
 
     mockMvc
       //try to add a new glossary
@@ -166,10 +167,11 @@ class RestTest extends BaseTest {
   def `add glossary with non existing ID`() {
     val startGlossariesCount = glossaryPersistence.count()
 
-    val glossary = new Glossary()
-    glossary.id = 100500L
-    glossary.name = "Try to add not-existing glossary"
-    glossary.description = "Test glossary description"
+    val glossary = Glossary(
+      id = 100500L,
+      name = "Try to add not-existing glossary",
+      description = "Test glossary description"
+    )
 
     //this glossary is NOT present in DB
     assume(!glossaryPersistence.exists(glossary.id))
@@ -200,9 +202,10 @@ class RestTest extends BaseTest {
   def `add glossary with existing name`() {
     val startGlossariesCount = glossaryPersistence.count()
 
-    val glossary = new Glossary()
-    glossary.name = "Test glossary"
-    glossary.description = "Test glossary's description"
+    val glossary = Glossary(
+      name = "Test glossary",
+      description = "Test glossary's description"
+    )
 
     mockMvc
       //try to add a new glossary
@@ -224,9 +227,10 @@ class RestTest extends BaseTest {
   def `add invalid glossary`() {
     val startGlossariesCount = glossaryPersistence.count()
 
-    val glossary = new Glossary()
-    glossary.name = null //incorrect value
-    glossary.description = "Test glossary's description"
+    val glossary = Glossary(
+      name = null, //incorrect value
+      description = "Test glossary's description"
+    )
 
     mockMvc
       //try to add a new glossary, which contains invalid value
@@ -254,10 +258,11 @@ class RestTest extends BaseTest {
   def `update valid glossary`() {
     val id = 2L
 
-    val glossary = new Glossary()
-    glossary.id = id
-    glossary.name = "Test valid glossary"
-    glossary.description = "Test glossary's description"
+    val glossary = Glossary(
+      id = id,
+      name = "Test valid glossary",
+      description = "Test glossary's description"
+    )
 
     mockMvc
       //try to update existing glossary
@@ -283,10 +288,11 @@ class RestTest extends BaseTest {
 
     val initialGlossary = glossaryPersistence.findOne(id)
 
-    val glossary = new Glossary()
-    glossary.id = id
-    glossary.name = null //incorrect value
-    glossary.description = "Doesn't matter"
+    val glossary = Glossary(
+      id = id,
+      name = null, //incorrect value
+      description = "Doesn't matter"
+    )
 
     //initial glossary are not the same as created one
     assume(!initialGlossary.equals(glossary))
@@ -317,10 +323,11 @@ class RestTest extends BaseTest {
   def `update glossary with non existing ID`() {
     val startGlossariesCount = glossaryPersistence.count()
 
-    val glossary = new Glossary()
-    glossary.id = 500100L
-    glossary.name = "Test not-existing glossary"
-    glossary.description = "Test glossary description"
+    val glossary = Glossary(
+      id = 500100L,
+      name = "Test not-existing glossary",
+      description = "Test glossary description"
+    )
 
     //this glossary is NOT present in DB
     assume(!glossaryPersistence.exists(glossary.id))
@@ -351,10 +358,11 @@ class RestTest extends BaseTest {
   def `update glossary with null ID`() {
     val startGlossariesCount = glossaryPersistence.count()
 
-    val glossary = new Glossary()
-    glossary.id = null
-    glossary.name = "Test null-IDs glossary"
-    glossary.description = "Test glossary description"
+    val glossary = Glossary(
+      id = null,
+      name = "Test null-IDs glossary",
+      description = "Test glossary description"
+    )
 
     mockMvc
       //try to update existing glossary, which contains null ID value

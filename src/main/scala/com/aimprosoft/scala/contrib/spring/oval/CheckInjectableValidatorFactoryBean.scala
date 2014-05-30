@@ -15,12 +15,8 @@ class CheckInjectableValidatorFactoryBean extends FactoryBean[Validator]{
     new Validator(annotationsConfigurer)
   }
 
-  def getObjectType: Class[_] = {
-    classOf[Validator]
-  }
+  def getObjectType: Class[_] = classOf[Validator]
 
-  def isSingleton: Boolean = {
-    false
-  }
+  def isSingleton: Boolean = false
 
 }

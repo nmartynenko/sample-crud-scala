@@ -20,13 +20,7 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
 
   var validator: Validator = _
 
-  def SpringOvalValidator() {
-    validator = new Validator
-  }
-
-  def supports(clazz: Class[_]) = {
-    true
-  }
+  def supports(clazz: Class[_]) = true
 
   def validate(target: Object, errors: Errors) {
     doValidate(target, errors, "")

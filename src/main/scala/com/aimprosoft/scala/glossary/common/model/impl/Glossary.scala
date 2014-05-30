@@ -41,3 +41,20 @@ class Glossary extends BusinessModel {
     state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
   }
 }
+
+//companion object for convenience and interoperability with Hibernate
+object Glossary {
+
+  def apply(id: java.lang.Long = null,
+            name: String = null,
+            description: String = null): Glossary = {
+    val glossary: Glossary = new Glossary
+
+    glossary.id = id
+    glossary.name = name
+    glossary.description = description
+
+    glossary
+  }
+
+}
