@@ -8,9 +8,6 @@ import org.springframework.validation.{FieldError, Errors}
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation._
 
-//Java2Scala conversions and vice versa
-import scala.collection.JavaConversions._
-
 @ControllerAdvice
 class GlossaryControllerAdvice extends BaseController {
 
@@ -45,6 +42,9 @@ class GlossaryControllerAdvice extends BaseController {
   }
 
   private def transformErrors(errors: Errors) = {
+    //Java2Scala conversions and vice versa
+    import scala.collection.JavaConversions._
+
     (errors.getAllErrors map {error =>
       val objectName = error match {
         case error: FieldError =>
