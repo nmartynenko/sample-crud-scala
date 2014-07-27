@@ -1,6 +1,7 @@
 package com.aimprosoft.scala.glossary.common.model
 
 import javax.persistence._
+
 import scala.beans.BeanProperty
 
 @MappedSuperclass

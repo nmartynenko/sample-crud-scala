@@ -2,7 +2,7 @@ package com.aimprosoft.scala.glossary.common.persistence
 
 import com.aimprosoft.scala.glossary.common.model.UserRole
 import com.aimprosoft.scala.glossary.common.model.impl.User
-import org.springframework.data.jpa.repository.{Query, JpaRepository}
+import org.springframework.data.jpa.repository.{JpaRepository, Query}
 import org.springframework.data.repository.query.Param
 
 trait UserPersistence extends JpaRepository[User, java.lang.Long] {

@@ -3,8 +3,9 @@ package com.aimprosoft.scala.glossary.common.service.impl
 import com.aimprosoft.scala.glossary.common.model.BusinessModel
 import com.aimprosoft.scala.glossary.common.service.BaseCrudService
 import org.springframework.dao.EmptyResultDataAccessException
-import org.springframework.data.domain.{PageRequest, Pageable, Page}
+import org.springframework.data.domain.{Page, PageRequest, Pageable}
 import org.springframework.data.jpa.repository.JpaRepository
+
 import scala.reflect.runtime.{universe => ru}
 
 abstract class BaseCrudServiceImpl[T <: BusinessModel : ru.TypeTag, P <: JpaRepository[T, java.lang.Long]] extends BaseCrudService[T] {

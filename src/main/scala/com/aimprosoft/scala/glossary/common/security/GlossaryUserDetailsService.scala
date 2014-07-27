@@ -5,7 +5,7 @@ import com.aimprosoft.scala.glossary.common.model.impl.User
 import com.aimprosoft.scala.glossary.common.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.userdetails.{UsernameNotFoundException, UserDetails, UserDetailsService}
+import org.springframework.security.core.userdetails.{UserDetails, UserDetailsService, UsernameNotFoundException}
 
 class GlossaryUserDetailsService extends UserDetailsService {
 
@@ -21,13 +21,11 @@ class GlossaryUserDetailsService extends UserDetailsService {
       case null =>
         null
       case _ =>
-        val userDetails = GlossaryUserDetails(
+        GlossaryUserDetails(
           username, user.password, getGrantedAuthorities(user),
           //set actual DB user for possible further purposes
           user
         )
-
-        userDetails
     }
   }
 
@@ -53,7 +51,6 @@ object GlossaryUserDetailsService{
 
   val ADMIN_ROLES = List(UserRole.USER, UserRole.ADMIN)
   val ADMIN_AUTHORITIES = rolesToAuthorities(ADMIN_ROLES)
-
 
   val USER_ROLES = List(UserRole.USER)
   val USER_AUTHORITIES = rolesToAuthorities(USER_ROLES)

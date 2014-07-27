@@ -4,7 +4,7 @@ import org.springframework.dao.DataAccessException
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.AuthenticationException
-import org.springframework.validation.{FieldError, Errors}
+import org.springframework.validation.{Errors, FieldError}
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation._
 

@@ -2,12 +2,14 @@ package com.aimprosoft.scala.contrib.spring.oval
 
 import java.lang.{reflect => jreflect}
 import java.util
+
 import net.sf.oval.context.FieldContext
 import net.sf.oval.exception.ValidationFailedException
 import net.sf.oval.{ConstraintViolation, Validator}
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.util.Assert
 import org.springframework.validation.Errors
+
 import scala.language.reflectiveCalls
 
 //Java2Scala conversions and vice versa
@@ -33,11 +35,10 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
       val constraintViolations = validator.asInstanceOf[Validatable].validate(target)
 
       for (violation <- constraintViolations.toList) {
-        val context = violation.getContext
         val errorCode = violation.getErrorCode
         val errorMessage = violation.getMessage
 
-        context match {
+        violation.getContext match {
           case ctx: FieldContext =>
             val fieldName = fieldPrefix + ctx.getField.getName
             errors.rejectValue(fieldName, errorCode, errorMessage)

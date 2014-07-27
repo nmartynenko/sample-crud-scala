@@ -1,9 +1,9 @@
 package com.aimprosoft.scala.contrib.spring.oval
 
-import org.springframework.beans.factory.FactoryBean
 import net.sf.oval.Validator
 import net.sf.oval.configuration.annotation.AnnotationsConfigurer
 import net.sf.oval.integration.spring.SpringCheckInitializationListener
+import org.springframework.beans.factory.FactoryBean
 
 class CheckInjectableValidatorFactoryBean extends FactoryBean[Validator]{
 

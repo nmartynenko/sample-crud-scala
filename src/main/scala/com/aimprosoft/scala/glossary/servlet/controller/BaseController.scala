@@ -1,12 +1,13 @@
 package com.aimprosoft.scala.glossary.servlet.controller
 
-import com.typesafe.scalalogging.slf4j.StrictLogging
 import java.util.Locale
 import javax.servlet.http.HttpServletRequest
+
+import com.typesafe.scalalogging.slf4j.StrictLogging
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
-import org.springframework.web.context.request.{ServletRequestAttributes, RequestContextHolder}
+import org.springframework.web.context.request.{RequestContextHolder, ServletRequestAttributes}
 
 trait BaseController extends StrictLogging {
 

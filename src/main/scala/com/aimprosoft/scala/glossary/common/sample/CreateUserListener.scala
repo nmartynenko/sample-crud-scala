@@ -1,10 +1,11 @@
 package com.aimprosoft.scala.glossary.common.sample
 
+import javax.annotation.PostConstruct
+
 import com.aimprosoft.scala.glossary.common.model.UserRole
 import com.aimprosoft.scala.glossary.common.model.impl.User
 import com.aimprosoft.scala.glossary.common.service.UserService
 import com.typesafe.scalalogging.slf4j.StrictLogging
-import javax.annotation.PostConstruct
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

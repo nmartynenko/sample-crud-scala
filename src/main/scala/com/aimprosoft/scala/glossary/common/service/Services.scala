@@ -1,7 +1,7 @@
 package com.aimprosoft.scala.glossary.common.service
 
-import com.aimprosoft.scala.glossary.common.model.impl.{User, Glossary}
-import com.aimprosoft.scala.glossary.common.model.{UserRole, BusinessModel}
+import com.aimprosoft.scala.glossary.common.model.impl.{Glossary, User}
+import com.aimprosoft.scala.glossary.common.model.{BusinessModel, UserRole}
 import org.springframework.data.domain.Page
 import org.springframework.transaction.annotation.Transactional
 
