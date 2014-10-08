@@ -10,7 +10,7 @@ class CheckInjectableValidatorFactoryBean extends FactoryBean[Validator]{
   def getObject: Validator = {
     val annotationsConfigurer = new AnnotationsConfigurer
 
-    annotationsConfigurer addCheckInitializationListener SpringCheckInitializationListener.INSTANCE
+    annotationsConfigurer.addCheckInitializationListener(SpringCheckInitializationListener.INSTANCE)
 
     new Validator(annotationsConfigurer)
   }

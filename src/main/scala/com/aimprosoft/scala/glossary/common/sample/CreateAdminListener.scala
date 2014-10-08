@@ -16,7 +16,7 @@ class CreateAdminListener extends StrictLogging {
   private val userService: UserService = null
 
   @PostConstruct
-  def init() {
+  def init(): Unit = {
     if (userService.countByRole(UserRole.ADMIN) == 0) {
       logger.info("Start adding sample admin")
 

@@ -16,7 +16,7 @@ class CreateUserListener extends StrictLogging {
   private val userService: UserService = null
 
   @PostConstruct
-  def init() {
+  def init(): Unit = {
     if (userService.countByRole(UserRole.USER) == 0) {
 
       logger.info("Start adding sample user")

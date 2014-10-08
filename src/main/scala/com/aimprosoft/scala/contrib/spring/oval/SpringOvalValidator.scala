@@ -22,14 +22,14 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
 
   var validator: Validator = _
 
-  def supports(clazz: Class[_]) = true
+  def supports(clazz: Class[_]): Boolean = true
 
-  def validate(target: Object, errors: Errors) {
+  def validate(target: Object, errors: Errors): Unit = {
     doValidate(target, errors, "")
   }
 
   @SuppressWarnings(Array("unchecked"))
-  private def doValidate(target: Object, errors: Errors, fieldPrefix: String) {
+  private def doValidate(target: Object, errors: Errors, fieldPrefix: String): Unit = {
     try {
       //validation of current object
       val constraintViolations = validator.asInstanceOf[Validatable].validate(target)
@@ -50,7 +50,7 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
       //validation of nested objects
       val fields = getFields(target)
       for (field <- fields) {
-        val validate = field getAnnotation classOf[SpringValidateNestedProperty]
+        val validate = field.getAnnotation(classOf[SpringValidateNestedProperty])
         if (validate != null) {
           if (!field.isAccessible) {
             field.setAccessible(true)
@@ -63,7 +63,7 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
             
             //specify method helpers
             //for collections and arrays
-            def handleSequences(objects: Seq[_]) {
+            def handleSequences(objects: Seq[_]): Unit = {
               var index = 0
               for (o <- objects) {
                 doValidate(o.asInstanceOf[Object], errors, name + "[" + index + "].")
@@ -72,8 +72,8 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
             }
 
             //for maps
-            def handleMap(m: Map[_, _]) {
-              for ((key, value) <- m) {
+            def handleMap(m: Map[_, _]): Unit = {
+              for ((key, _) <- m) {
                 key match {
                   case k: String =>
                     doValidate(k, errors, name + "['" + k + "']")
@@ -133,7 +133,7 @@ class SpringOvalValidator extends org.springframework.validation.Validator with 
   }
 
   @throws[Exception]
-  def afterPropertiesSet() {
+  def afterPropertiesSet(): Unit = {
     Assert.notNull(validator, "Property [validator] is not set")
   }
 

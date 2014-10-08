@@ -45,7 +45,7 @@ class CreateGlossaryDataListener extends StrictLogging {
   private val glossaryPersistence: GlossaryPersistence = null
 
   @PostConstruct
-  def init() {
+  def init(): Unit = {
     logger.info("Start adding sample glossaries")
 
     val random = new Random()

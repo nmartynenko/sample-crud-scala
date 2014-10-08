@@ -45,7 +45,7 @@ class GlossaryRestController extends BaseController {
     consumes = Array(
       MediaType.APPLICATION_JSON_VALUE
     ))
-  def saveGlossary(@RequestBody @Validated glossary: Glossary) {
+  def saveGlossary(@RequestBody @Validated glossary: Glossary): Unit = {
     glossaryService.add(glossary)
   }
 
@@ -55,7 +55,7 @@ class GlossaryRestController extends BaseController {
     consumes = Array(
       MediaType.APPLICATION_JSON_VALUE
     ))
-  def updateGlossary(@RequestBody @Validated glossary: Glossary) {
+  def updateGlossary(@RequestBody @Validated glossary: Glossary): Unit = {
     glossaryService.update(glossary)
   }
 
@@ -63,7 +63,7 @@ class GlossaryRestController extends BaseController {
   @RequestMapping(value = Array("/glossaries/{glossaryId}"),
     method = Array(RequestMethod.DELETE)
   )
-  def removeGlossary(@PathVariable("glossaryId") glossaryId: Long) {
+  def removeGlossary(@PathVariable("glossaryId") glossaryId: Long): Unit = {
     glossaryService.removeById(glossaryId)
   }
 }

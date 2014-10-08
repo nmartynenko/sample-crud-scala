@@ -5,7 +5,7 @@ import javax.persistence._
 import scala.beans.BeanProperty
 
 @MappedSuperclass
-abstract class BusinessModel extends Serializable {
+abstract class BusinessModel extends Equals with Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
