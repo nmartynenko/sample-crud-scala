@@ -41,6 +41,13 @@ class GlossaryControllerAdvice extends BaseController {
     transformErrors(e.getBindingResult)
   }
 
+  //logs exception and returns it's message
+  protected def simpleExceptionHandler(th: Throwable) = {
+    logger.error(th.getMessage, th)
+
+    th.getMessage
+  }
+
   private def transformErrors(errors: Errors): Map[String, String] = {
     //Java2Scala conversions and vice versa
     import scala.collection.JavaConversions._

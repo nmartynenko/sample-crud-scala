@@ -1,5 +1,7 @@
 package com.aimprosoft.scala.glossary.common.config
 
+import java.util.Locale
+
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
@@ -8,6 +10,9 @@ import org.springframework.stereotype.Service
  */
 @Service("props")
 class ApplicationProps {
+
+  @Value("${sample.locale.default}")
+  val defaultLocale: String = Locale.getDefault.getLanguage
 
   @Value("${paginator.default.pageSize}")
   val defaultPaginatorPageSize: Int = 0

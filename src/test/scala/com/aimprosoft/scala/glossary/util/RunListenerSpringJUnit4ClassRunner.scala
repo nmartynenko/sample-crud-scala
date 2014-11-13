@@ -9,7 +9,7 @@ class RunListenerSpringJUnit4ClassRunner(private val clazz: Class[_])
   private val runListener: RunListener = {
     clazz.getAnnotation(classOf[WithRunListener]) match {
       case annotation: WithRunListener =>
-        annotation.value().newInstance()
+        annotation.value.newInstance()
       case _ =>
         null
     }

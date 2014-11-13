@@ -27,11 +27,4 @@ trait BaseController extends StrictLogging {
     LocaleContextHolder.getLocale
   }
 
-  //logs exception and returns it's message
-  protected def simpleExceptionHandler(th: Throwable) = {
-    logger.error(th.getMessage, th)
-
-    th.getMessage
-  }
-
 }

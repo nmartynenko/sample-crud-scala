@@ -81,4 +81,9 @@ object User {
     user
   }
 
+
+  def unapply(user: User): Option[(Long, String, String, String, UserRole)] = {
+    Some((user.id, user.email, user.password, user.name, user.role))
+  }
+
 }

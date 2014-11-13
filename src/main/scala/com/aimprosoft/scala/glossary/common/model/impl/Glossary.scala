@@ -50,13 +50,17 @@ object Glossary {
   def apply(id: java.lang.Long = null,
             name: String = null,
             description: String = null): Glossary = {
-    val glossary: Glossary = new Glossary
+    val glossary = new Glossary
 
     glossary.id = id
     glossary.name = name
     glossary.description = description
 
     glossary
+  }
+
+  def unapply(glossary: Glossary): Option[(Long, String, String)] = {
+    Some((glossary.id, glossary.name, glossary.description))
   }
 
 }

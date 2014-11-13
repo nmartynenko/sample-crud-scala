@@ -12,11 +12,9 @@ import com.typesafe.scalalogging.slf4j.StrictLogging
 class InvokeAsRunListener extends RunListener
   with InvokeAsRunListenerPredefinedRoles with StrictLogging {
 
-  private def authenticateAnonymously(){
-    authenticate(ANONYMOUS)
-  }
+  private def authenticateAnonymously() = authenticate(ANONYMOUS)
 
-  private def authenticateUser(role: UserRole) {
+  private def authenticateUser(role: UserRole): Unit = {
     role match {
       case UserRole.USER =>
         authenticate(USER)
